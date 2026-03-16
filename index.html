@@ -8,7 +8,7 @@
   <meta name="keywords" content="Smith Mountain Lake fishing, striper guide, fishing charter, Captain Tommy Moore, striped bass, SML fishing">
   <meta property="og:title" content="SML Wicked Striper Guide Service">
   <meta property="og:description" content="Trophy striped bass fishing on Smith Mountain Lake. Book your trip with Captain Tommy Moore today.">
-  <meta property="og:image" content="https://static.wixstatic.com/media/0d3d94_062d6fb09bbf4ee786a3f0dcf2a7565b~mv2.jpg">
+  <meta property="og:image" content="images/site_005.jpg">
   <meta property="og:type" content="website">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎣</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,6 +77,13 @@
       text-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
     .nav-logo span { color: var(--gold); }
+    .nav-logo-img {
+      height: 45px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      transition: height 0.3s;
+    }
+    .nav.scrolled .nav-logo-img { height: 36px; }
     .nav-links {
       display: flex;
       gap: 2rem;
@@ -135,7 +142,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('https://static.wixstatic.com/media/0d3d94_062d6fb09bbf4ee786a3f0dcf2a7565b~mv2.jpg') center/cover no-repeat;
+      background: url('images/site_005.jpg') center/cover no-repeat;
       transform: scale(1.05);
       animation: heroZoom 20s ease-in-out infinite alternate;
     }
@@ -799,7 +806,7 @@
     .cta-banner {
       position: relative;
       padding: 6rem 2rem;
-      background: url('https://static.wixstatic.com/media/0d3d94_4600c7303dd447d0af6cfd148cfba079~mv2_d_4032_3024_s_4_2.jpg') center/cover no-repeat;
+      background: url('images/site_001.jpg') center/cover no-repeat;
       text-align: center;
     }
     .cta-banner::before {
@@ -970,7 +977,7 @@
 
   <!-- NAV -->
   <nav class="nav" id="nav">
-    <a href="#" class="nav-logo">WICKED <span>STRIPER</span></a>
+    <a href="#" class="nav-logo"><img src="images/logo.png" alt="SML Wicked Striper Guide Service" class="nav-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span style="display:none">WICKED <em style="color:var(--gold)">STRIPER</em></span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#pricing">Rates</a></li>
@@ -1023,7 +1030,7 @@
       <div class="section-title fade-up">MEET CAPTAIN TOMMY MOORE</div>
       <div class="about-grid">
         <div class="about-image fade-up">
-          <img src="https://static.wixstatic.com/media/0d3d94_a110ad557b8a4809a04bb63a2fe7a0b0~mv2.jpg" alt="Captain Tommy Moore with trophy striper" loading="lazy">
+          <img src="images/site_011.jpg" alt="Captain Tommy Moore with trophy striper" loading="lazy">
           <div class="about-image-badge">
             <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             Licensed & Insured
@@ -1143,43 +1150,11 @@
       <div class="section-title fade-up">RECENT TRIPS & TROPHY CATCHES</div>
       <p class="section-desc fade-up">See what our guests are reeling in on Smith Mountain Lake.</p>
 
-      <div class="gallery-grid fade-up">
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_1e57c45f5e6a4d96a0d212b43c9d54ac~mv2.jpg" alt="Trophy striper catch" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_f510866e5dae44bfab68152c4f300a88~mv2.jpg" alt="Happy angler with striped bass" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_13791929f49b4239bce268603a966432~mv2.jpg" alt="Fishing on Smith Mountain Lake" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_8635b802be3a4d34b2d03d4259810bc8~mv2.jpg" alt="Big catch of the day" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_925e372a696f45eb84c03c232e4eac11~mv2.jpg" alt="Group fishing trip" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_9bde2bb1569049759c0a7299b125cfc4~mv2.jpg" alt="Striper fishing trip" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_6056c61cf78a44158851cd49b566b5bd~mv2.jpg" alt="Family fishing trip" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_970bf2a93c26470f81683d2d9bbf3add~mv2.jpg" alt="Sunset on Smith Mountain Lake" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_2590b22c9ff5471490b1ecabb7881118~mv2.jpg" alt="Trophy striper catch" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_90588a8ac773471d98ce542a45905563~mv2.jpg" alt="Fishing adventure" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_2c34226a3d844daeb90bf992ec112188~mv2.jpg" alt="Happy anglers" loading="lazy">
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://static.wixstatic.com/media/0d3d94_fff564900fb24d87af021df7fc61431f~mv2.jpg" alt="Big striper catch" loading="lazy">
-        </div>
+      <div class="gallery-grid fade-up" id="galleryGrid">
+        <!-- Photos loaded dynamically -->
+      </div>
+      <div style="text-align:center;margin-top:2rem;" id="galleryToggle">
+        <button class="btn btn-primary" onclick="toggleGallery()" id="galleryBtn" style="background:var(--navy);color:var(--white);border:2px solid var(--gray-300);">Show All Photos</button>
       </div>
     </div>
   </section>
@@ -1210,7 +1185,7 @@
             </li>
             <li>
               <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-              <div><strong>Bring Your License</strong> &mdash; A valid Virginia DWR freshwater fishing license is required for all anglers.</div>
+              <div><strong>Bring Your License</strong> &mdash; A valid Virginia DWR freshwater fishing license is required for all anglers. <a href="https://www.dgif.virginia.gov/licenses/" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600;">Buy your license here &rarr;</a></div>
             </li>
             <li>
               <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
@@ -1363,6 +1338,20 @@
     </div>
   </section>
 
+  <!-- FISHING LICENSE BANNER -->
+  <section style="background:linear-gradient(135deg,#065f46,#047857);padding:3rem 2rem;text-align:center;">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;">
+        <div style="text-align:left;max-width:500px;">
+          <div style="font-family:var(--font-display);font-size:0.8rem;color:#6ee7b7;letter-spacing:3px;text-transform:uppercase;margin-bottom:0.25rem;">Required For All Anglers</div>
+          <h3 style="font-family:var(--font-display);font-size:2rem;color:white;letter-spacing:1px;margin-bottom:0.5rem;">VIRGINIA FISHING LICENSE</h3>
+          <p style="color:#a7f3d0;font-size:0.95rem;">All anglers 16 and older need a valid Virginia DWR freshwater fishing license. Purchase yours online before your trip &mdash; it only takes a few minutes.</p>
+        </div>
+        <a href="https://www.dgif.virginia.gov/licenses/" target="_blank" rel="noopener" class="btn" style="background:white;color:#065f46;font-weight:700;font-size:1rem;padding:1rem 2rem;white-space:nowrap;">Get Your License &rarr;</a>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA BANNER -->
   <div class="cta-banner">
     <h2 class="fade-up">READY TO CATCH YOUR<br>TROPHY STRIPER?</h2>
@@ -1428,6 +1417,67 @@
   </div>
 
   <script>
+    // Gallery - load ALL local photos
+    const allPhotos = [
+      // Fishing catch & trip photos (scraped from site)
+      'images/site_008.jpg','images/site_009.jpg','images/site_010.jpg',
+      'images/site_011.jpg','images/site_012.jpg','images/site_013.jpg',
+      'images/site_014.jpg','images/site_015.jpg','images/site_016.jpg',
+      'images/site_017.jpg','images/site_018.jpg','images/site_019.jpg',
+      'images/site_020.jpg','images/site_021.jpg','images/site_022.jpg',
+      'images/site_023.jpg','images/site_024.jpg','images/site_025.jpg',
+      'images/site_026.jpg','images/site_027.jpg','images/site_028.jpg',
+      'images/site_029.jpg','images/site_030.jpg','images/site_031.jpg',
+      'images/site_032.jpg','images/site_033.jpg','images/site_034.jpg',
+      'images/site_035.jpg','images/site_036.jpg','images/site_037.jpg',
+      'images/site_038.jpg','images/site_039.jpg','images/site_040.jpg',
+      'images/site_041.jpg',
+      // Product/additional photos
+      'images/site_045.jpg','images/site_047.jpg','images/site_049.jpg',
+      'images/site_051.jpg','images/site_053.jpg','images/site_055.jpg',
+      'images/site_057.jpg','images/site_059.jpg','images/site_061.jpg',
+      'images/site_065.jpg','images/site_067.jpg',
+      // Google Business photos from Downloads
+      'images/unnamed.webp','images/unnamed (1).webp','images/unnamed (2).webp',
+      'images/unnamed (3).webp','images/unnamed (4).webp','images/unnamed (5).webp',
+      'images/unnamed (6).webp','images/unnamed (7).webp','images/unnamed (8).webp',
+      'images/unnamed (9).webp','images/unnamed (10).webp','images/unnamed (11).webp',
+      'images/unnamed (12).webp','images/unnamed (13).webp','images/unnamed (14).webp',
+      'images/unnamed (15).webp','images/unnamed (16).webp','images/unnamed (17).webp',
+      'images/unnamed (18).webp','images/unnamed (19).webp','images/unnamed (20).webp',
+      'images/unnamed (21).webp'
+    ];
+
+    let showAll = false;
+    const INITIAL_COUNT = 12;
+
+    function renderGallery() {
+      const grid = document.getElementById('galleryGrid');
+      const photos = showAll ? allPhotos : allPhotos.slice(0, INITIAL_COUNT);
+      grid.innerHTML = photos.map((src, i) =>
+        '<div class="gallery-item" onclick="openLightbox(this)">' +
+        '<img src="' + src + '" alt="Fishing trip photo" loading="lazy">' +
+        '</div>'
+      ).join('');
+      const btn = document.getElementById('galleryBtn');
+      if (showAll) {
+        btn.textContent = 'Show Less';
+      } else {
+        btn.textContent = 'Show All ' + allPhotos.length + ' Photos';
+      }
+      if (allPhotos.length <= INITIAL_COUNT) {
+        document.getElementById('galleryToggle').style.display = 'none';
+      }
+    }
+
+    function toggleGallery() {
+      showAll = !showAll;
+      renderGallery();
+      if (!showAll) document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    renderGallery();
+
     // Scroll-triggered nav
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
