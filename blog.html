@@ -228,6 +228,21 @@
       if (slug) showPost(slug); else showList();
     });
 
+    // Google Analytics
+    (function(){
+      var gaId = localStorage.getItem('ws_ga_id');
+      if (gaId) {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', gaId);
+      }
+    })();
+
     loadBlog();
 
     // Analytics tracker

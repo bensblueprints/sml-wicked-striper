@@ -1200,6 +1200,20 @@
       </div>
 
       <div class="gcal-settings">
+        <h3>GOOGLE ANALYTICS</h3>
+        <p style="color:var(--gray-400);font-size:0.9rem;margin-bottom:1.25rem;">Add your Google Analytics 4 Measurement ID to track all website traffic, conversions, and user behavior in your Google Analytics dashboard.</p>
+        <div style="margin-bottom:1rem;">
+          <label style="display:block;font-size:0.75rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.4rem;">GA4 Measurement ID</label>
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <input type="text" id="ga-id" placeholder="G-XXXXXXXXXX" style="flex:1;padding:0.7rem 1rem;background:var(--navy);border:1px solid var(--navy-lighter);border-radius:8px;color:var(--white);font-family:var(--font-body);font-size:0.85rem;outline:none;">
+            <button class="action-btn action-btn-confirm" onclick="saveGAId()">Save</button>
+          </div>
+          <div id="ga-status" style="margin-top:0.5rem;font-size:0.8rem;"></div>
+        </div>
+        <p style="color:var(--gray-500);font-size:0.75rem;">Get your Measurement ID from <a href="https://analytics.google.com/" target="_blank" style="color:var(--teal);">Google Analytics</a> &rarr; Admin &rarr; Data Streams &rarr; Web. It looks like <code style="background:var(--navy);padding:0.1rem 0.3rem;border-radius:3px;">G-XXXXXXXXXX</code>. Once saved, the tracking code is automatically injected into all pages.</p>
+      </div>
+
+      <div class="gcal-settings">
         <h3>BOOKING EMAIL NOTIFICATIONS</h3>
         <p style="color:var(--gray-400);font-size:0.9rem;margin-bottom:1.25rem;">Get an email every time someone submits a booking request. Notifications are sent by Netlify to the email(s) below.</p>
         <div style="margin-bottom:1rem;">
@@ -1517,7 +1531,7 @@
               ${status !== 'cancelled' ? `
               <button class="action-btn action-btn-edit" onclick="event.stopPropagation();document.getElementById('editdate-${globalIdx}').style.display='flex';">&#9998; Edit Date</button>
               <button class="action-btn action-btn-calendar" onclick="event.stopPropagation();addToCalendar(${globalIdx})">&#128197; Add to Calendar</button>
-              <button class="action-btn" onclick="event.stopPropagation();if(confirm('Cancel this booking for '+${JSON.stringify(b.name)}+'?')){setStatus('${b.id}','cancelled');closeAllMenus();}" style="background:transparent;color:var(--red);border:1px solid rgba(239,68,68,0.3);">&#10007; Cancel</button>
+              <button class="action-btn" onclick="event.stopPropagation();cancelBooking('${b.id}',${JSON.stringify(b.name).replace(/'/g,"\\'")});" style="background:transparent;color:var(--red);border:1px solid rgba(239,68,68,0.3);">&#10007; Cancel</button>
               ` : ''}
             </div>
           </td>
@@ -1820,10 +1834,24 @@
     }
   }
 
-  // Load saved notification email
+  // ========== GOOGLE ANALYTICS ==========
+  function saveGAId() {
+    const gaId = document.getElementById('ga-id').value.trim();
+    if (!gaId) return;
+    if (!gaId.match(/^G-[A-Z0-9]+$/)) {
+      document.getElementById('ga-status').innerHTML = '<span style="color:var(--red);">Invalid format. Should be G-XXXXXXXXXX</span>';
+      return;
+    }
+    localStorage.setItem('ws_ga_id', gaId);
+    document.getElementById('ga-status').innerHTML = '<span style="color:var(--green);">&#10003; Saved! GA4 tracking is now active on all pages.</span>';
+  }
+
+  // Load saved settings
   (function() {
-    const saved = localStorage.getItem('ws_notif_email');
-    if (saved) document.getElementById('notif-email').value = saved;
+    const savedEmail = localStorage.getItem('ws_notif_email');
+    if (savedEmail) document.getElementById('notif-email').value = savedEmail;
+    const savedGA = localStorage.getItem('ws_ga_id');
+    if (savedGA) document.getElementById('ga-id').value = savedGA;
   })();
 
   // ========== CONFIRM BOOKING ==========
@@ -1835,6 +1863,13 @@
     const gcalToken = localStorage.getItem('ws_gcal_token');
     if (gcalToken) {
       addToCalendarAPI(idx, gcalToken);
+    }
+  }
+
+  function cancelBooking(bookingId, name) {
+    if (confirm('Cancel this booking for ' + name + '?')) {
+      setStatus(bookingId, 'cancelled');
+      closeAllMenus();
     }
   }
 
