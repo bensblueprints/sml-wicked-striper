@@ -593,6 +593,12 @@
       color: var(--green);
     }
 
+    .badge-cancelled {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--red);
+      text-decoration: line-through;
+    }
+
     .badge-dot {
       width: 6px;
       height: 6px;
@@ -866,6 +872,7 @@
         <option value="new">New</option>
         <option value="confirmed">Confirmed</option>
         <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
       </select>
       <select class="filter-select" id="sort-select" onchange="applyFilters()">
         <option value="newest">Newest First</option>
@@ -1166,7 +1173,7 @@
   }
 
   function renderBadge(status) {
-    const labels = { new: 'New', confirmed: 'Confirmed', completed: 'Completed' };
+    const labels = { new: 'New', confirmed: 'Confirmed', completed: 'Completed', cancelled: 'Cancelled' };
     return `<span class="badge badge-${status}"><span class="badge-dot"></span>${labels[status] || 'New'}</span>`;
   }
 
@@ -1268,6 +1275,9 @@
                 <button class="status-option" onclick="setStatus('${b.id}','completed'); closeAllMenus();">
                   <span class="badge-dot" style="background:var(--green);width:6px;height:6px;border-radius:50%;"></span> Completed
                 </button>
+                <button class="status-option" onclick="if(confirm('Cancel this booking?')){setStatus('${b.id}','cancelled'); closeAllMenus();}">
+                  <span class="badge-dot" style="background:var(--red);width:6px;height:6px;border-radius:50%;"></span> Cancelled
+                </button>
               </div>
             </div>
           </td>
@@ -1293,15 +1303,21 @@
               <button class="action-btn action-btn-edit" onclick="document.getElementById('editdate-${globalIdx}').style.display='none'" style="padding:0.4rem 0.75rem;">Cancel</button>
             </div>
             <div class="action-bar">
-              ${status !== 'confirmed' && status !== 'completed' ?
-                `<button class="action-btn action-btn-confirm" onclick="event.stopPropagation();confirmBooking('${b.id}',${globalIdx})">&#10003; Confirm Booking</button>` :
+              ${status === 'cancelled' ?
+                `<span style="color:var(--red);font-size:0.85rem;font-weight:600;">&#10007; Cancelled</span>
+                 <button class="action-btn action-btn-edit" onclick="event.stopPropagation();setStatus('${b.id}','new');closeAllMenus();" style="border-color:rgba(34,197,94,0.3);color:var(--green);">Restore Booking</button>` :
+                status === 'completed' ?
+                `<span class="action-confirmed" style="color:var(--gold);">&#9733; Completed</span>` :
                 status === 'confirmed' ?
                 `<span class="action-confirmed">&#10003; Confirmed</span>
                  <button class="action-btn action-btn-complete" onclick="event.stopPropagation();setStatus('${b.id}','completed');closeAllMenus();">Mark Completed</button>` :
-                `<span class="action-confirmed" style="color:var(--gold);">&#9733; Completed</span>`
+                `<button class="action-btn action-btn-confirm" onclick="event.stopPropagation();confirmBooking('${b.id}',${globalIdx})">&#10003; Confirm Booking</button>`
               }
+              ${status !== 'cancelled' ? `
               <button class="action-btn action-btn-edit" onclick="event.stopPropagation();document.getElementById('editdate-${globalIdx}').style.display='flex';">&#9998; Edit Date</button>
               <button class="action-btn action-btn-calendar" onclick="event.stopPropagation();addToCalendar(${globalIdx})">&#128197; Add to Calendar</button>
+              <button class="action-btn" onclick="event.stopPropagation();if(confirm('Cancel this booking for '+${JSON.stringify(b.name)}+'?')){setStatus('${b.id}','cancelled');closeAllMenus();}" style="background:transparent;color:var(--red);border:1px solid rgba(239,68,68,0.3);">&#10007; Cancel</button>
+              ` : ''}
             </div>
           </td>
         </tr>
