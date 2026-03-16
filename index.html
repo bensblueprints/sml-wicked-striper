@@ -63,10 +63,19 @@
       transition: all 0.3s ease;
     }
     .nav.scrolled {
-      background: rgba(11, 26, 46, 0.95);
+      background: rgba(255, 255, 255, 0.97);
       backdrop-filter: blur(12px);
       padding: 0.6rem 2rem;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    }
+    .nav.scrolled .nav-links a {
+      color: var(--navy);
+      text-shadow: none;
+    }
+    .nav.scrolled .nav-links a:hover { color: var(--teal); }
+    .nav.scrolled .nav-cta {
+      background: var(--navy) !important;
+      color: var(--white) !important;
     }
     .nav-logo {
       font-family: var(--font-display);
