@@ -915,59 +915,53 @@
     <div id="panel-traffic" style="display:none;">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-label">Page Views (30d)</div>
-          <div class="stat-value gold" id="t-pageviews">--</div>
-          <div class="stat-sub">Total page views</div>
+          <div class="stat-label">Total Sessions</div>
+          <div class="stat-value gold" id="t-total">--</div>
+          <div class="stat-sub">All tracked visits</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Unique Visitors (30d)</div>
-          <div class="stat-value teal" id="t-visitors">--</div>
-          <div class="stat-sub">Unique visitors</div>
+          <div class="stat-label">Last 7 Days</div>
+          <div class="stat-value teal" id="t-week">--</div>
+          <div class="stat-sub">Recent sessions</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Bandwidth</div>
-          <div class="stat-value green" id="t-bandwidth">--</div>
-          <div class="stat-sub">Data transferred</div>
+          <div class="stat-label">Last 24 Hours</div>
+          <div class="stat-value green" id="t-today">--</div>
+          <div class="stat-sub">Today's sessions</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Top Page</div>
-          <div class="stat-value" id="t-toppage" style="color:var(--gray-300);font-size:1.2rem;word-break:break-all;">--</div>
-          <div class="stat-sub">Most visited path</div>
+          <div class="stat-label">Top Referrer</div>
+          <div class="stat-value" id="t-topreferrer" style="color:var(--gray-300);font-size:1.1rem;word-break:break-all;">--</div>
+          <div class="stat-sub">Most common source</div>
         </div>
       </div>
 
-      <!-- Page Views Chart -->
       <div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;">
-        <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--white);letter-spacing:1px;margin-bottom:1rem;">DAILY PAGE VIEWS</h3>
-        <div id="chart-container" style="position:relative;height:200px;display:flex;align-items:flex-end;gap:2px;padding-bottom:1.5rem;"></div>
+        <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--white);letter-spacing:1px;margin-bottom:1rem;">DAILY VISITORS (LAST 30 DAYS)</h3>
+        <div id="chart-container" style="position:relative;height:200px;display:flex;align-items:flex-end;gap:3px;padding-bottom:1.5rem;"></div>
       </div>
 
-      <!-- Top Pages Table -->
-      <div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;">
-        <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--white);letter-spacing:1px;margin-bottom:1rem;">TOP PAGES</h3>
-        <table style="width:100%;border-collapse:collapse;">
-          <thead><tr>
-            <th style="background:var(--navy-card);padding:0.6rem 1rem;text-align:left;font-size:0.7rem;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;">Page</th>
-            <th style="background:var(--navy-card);padding:0.6rem 1rem;text-align:right;font-size:0.7rem;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;">Views</th>
-          </tr></thead>
-          <tbody id="top-pages-body"><tr><td colspan="2" style="padding:2rem;text-align:center;color:var(--gray-500);">Loading...</td></tr></tbody>
-        </table>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+        <div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:1.5rem;">
+          <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--white);letter-spacing:1px;margin-bottom:1rem;">TOP PAGES</h3>
+          <div id="top-pages-body" style="font-size:0.85rem;color:var(--gray-400);">Loading...</div>
+        </div>
+        <div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:1.5rem;">
+          <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--white);letter-spacing:1px;margin-bottom:1rem;">TOP SOURCES</h3>
+          <div id="top-sources-body" style="font-size:0.85rem;color:var(--gray-400);">Loading...</div>
+        </div>
       </div>
 
-      <!-- Top Referrers Table -->
-      <div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;">
-        <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--white);letter-spacing:1px;margin-bottom:1rem;">TOP SOURCES / REFERRERS</h3>
-        <table style="width:100%;border-collapse:collapse;">
-          <thead><tr>
-            <th style="background:var(--navy-card);padding:0.6rem 1rem;text-align:left;font-size:0.7rem;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;">Source</th>
-            <th style="background:var(--navy-card);padding:0.6rem 1rem;text-align:right;font-size:0.7rem;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;">Visits</th>
-          </tr></thead>
-          <tbody id="top-sources-body"><tr><td colspan="2" style="padding:2rem;text-align:center;color:var(--gray-500);">Loading...</td></tr></tbody>
-        </table>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem;">
+        <div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:1.5rem;">
+          <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--white);letter-spacing:1px;margin-bottom:1rem;">SCREEN SIZES</h3>
+          <div id="screen-sizes-body" style="font-size:0.85rem;color:var(--gray-400);">Loading...</div>
+        </div>
+        <div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:1.5rem;">
+          <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--white);letter-spacing:1px;margin-bottom:1rem;">DEVICES</h3>
+          <div id="devices-body" style="font-size:0.85rem;color:var(--gray-400);">Loading...</div>
+        </div>
       </div>
-
-      <!-- Note -->
-      <p style="color:var(--gray-500);font-size:0.8rem;text-align:center;">Analytics data from Netlify. If analytics isn't enabled, <a href="https://app.netlify.com/projects/sml-wicked-striper/analytics" target="_blank" style="color:var(--teal);">enable it here</a>. Alternatively, add a free <a href="https://analytics.google.com" target="_blank" style="color:var(--teal);">Google Analytics</a> tag.</p>
     </div><!-- end panel-traffic -->
 
     <!-- ==================== SETTINGS TAB ==================== -->
@@ -995,6 +989,20 @@
         <button class="action-btn action-btn-edit" id="gcal-disconnect-btn" onclick="disconnectGoogleCalendar()" style="display:none;padding:0.7rem 1.5rem;font-size:0.9rem;">
           Disconnect
         </button>
+      </div>
+
+      <div class="gcal-settings">
+        <h3>BOOKING EMAIL NOTIFICATIONS</h3>
+        <p style="color:var(--gray-400);font-size:0.9rem;margin-bottom:1.25rem;">Get an email every time someone submits a booking request. Notifications are sent by Netlify to the email(s) below.</p>
+        <div style="margin-bottom:1rem;">
+          <label style="display:block;font-size:0.75rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.4rem;">Notification Email</label>
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <input type="email" id="notif-email" placeholder="captain@example.com" style="flex:1;padding:0.7rem 1rem;background:var(--navy);border:1px solid var(--navy-lighter);border-radius:8px;color:var(--white);font-family:var(--font-body);font-size:0.85rem;outline:none;">
+            <button class="action-btn action-btn-confirm" onclick="saveNotifEmail()">Save</button>
+          </div>
+          <div id="notif-status" style="margin-top:0.5rem;font-size:0.8rem;"></div>
+        </div>
+        <p style="color:var(--gray-500);font-size:0.75rem;">This sets the Netlify form notification email. You'll receive an email with all booking details each time someone submits the form.</p>
       </div>
 
       <div class="gcal-settings">
@@ -1403,162 +1411,201 @@
 
   // ========== TRAFFIC / ANALYTICS ==========
   let trafficLoaded = false;
+  let pageviewFormId = null;
+
+  async function getPageviewFormId() {
+    if (pageviewFormId) return pageviewFormId;
+    const resp = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/forms`, {
+      headers: { 'Authorization': `Bearer ${NETLIFY_TOKEN}` }
+    });
+    if (!resp.ok) return null;
+    const forms = await resp.json();
+    const pvForm = forms.find(f => f.name === 'pageview');
+    if (pvForm) { pageviewFormId = pvForm.id; return pvForm.id; }
+    return null;
+  }
 
   async function fetchTraffic() {
     if (trafficLoaded) return;
     trafficLoaded = true;
 
     try {
-      // Try Netlify Analytics API
+      const pvFormId = await getPageviewFormId();
+      if (!pvFormId) {
+        document.getElementById('t-total').textContent = '0';
+        document.getElementById('t-week').textContent = '0';
+        document.getElementById('t-today').textContent = '0';
+        document.getElementById('t-topreferrer').textContent = 'No data yet';
+        document.getElementById('chart-container').innerHTML = '<div style="text-align:center;color:var(--gray-500);width:100%;padding:3rem 0;">No visitor data yet. Traffic tracking is active &mdash; data will appear as visitors come to the site.</div>';
+        document.getElementById('top-pages-body').textContent = 'No data yet.';
+        document.getElementById('top-sources-body').textContent = 'No data yet.';
+        document.getElementById('screen-sizes-body').textContent = 'No data yet.';
+        document.getElementById('devices-body').textContent = 'No data yet.';
+        return;
+      }
+
+      // Fetch all pageview submissions
+      let page = 1, allPV = [], keepGoing = true;
+      while (keepGoing) {
+        const resp = await fetch(`https://api.netlify.com/api/v1/forms/${pvFormId}/submissions?per_page=100&page=${page}`, {
+          headers: { 'Authorization': `Bearer ${NETLIFY_TOKEN}` }
+        });
+        if (!resp.ok) break;
+        const subs = await resp.json();
+        if (subs.length === 0) { keepGoing = false; } else { allPV = allPV.concat(subs); if (subs.length < 100) keepGoing = false; page++; }
+      }
+
+      // Parse pageview data
+      const visits = allPV.map(s => ({
+        page: s.data?.page || '/',
+        referrer: s.data?.referrer || 'direct',
+        timestamp: s.created_at || s.data?.timestamp,
+        screen: s.data?.screen || '',
+        ua: s.data?.ua || ''
+      }));
+
       const now = new Date();
-      const from = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-      const fromStr = from.toISOString().split('.')[0] + 'Z';
-      const toStr = now.toISOString().split('.')[0] + 'Z';
+      const weekAgo = new Date(now - 7 * 86400000);
+      const dayAgo = new Date(now - 86400000);
 
-      // Fetch bandwidth
-      const bwResp = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/bandwidth?from=${fromStr}&to=${toStr}`, {
-        headers: { 'Authorization': `Bearer ${NETLIFY_TOKEN}` }
+      // Stats
+      document.getElementById('t-total').textContent = visits.length;
+      document.getElementById('t-week').textContent = visits.filter(v => new Date(v.timestamp) >= weekAgo).length;
+      document.getElementById('t-today').textContent = visits.filter(v => new Date(v.timestamp) >= dayAgo).length;
+
+      // Top referrer
+      const refCounts = {};
+      visits.forEach(v => {
+        let ref = v.referrer || 'direct';
+        try { ref = new URL(ref).hostname; } catch(e) { ref = ref || 'direct'; }
+        refCounts[ref] = (refCounts[ref] || 0) + 1;
       });
+      const topRef = Object.entries(refCounts).sort((a,b) => b[1] - a[1])[0];
+      document.getElementById('t-topreferrer').textContent = topRef ? topRef[0] : '--';
 
-      if (bwResp.ok) {
-        const bw = await bwResp.json();
-        const totalBytes = bw.used || 0;
-        document.getElementById('t-bandwidth').textContent = formatBytes(totalBytes);
+      // Daily chart (last 30 days)
+      const dailyCounts = {};
+      for (let i = 29; i >= 0; i--) {
+        const d = new Date(now - i * 86400000);
+        dailyCounts[d.toISOString().split('T')[0]] = 0;
       }
+      visits.forEach(v => {
+        const day = new Date(v.timestamp).toISOString().split('T')[0];
+        if (dailyCounts.hasOwnProperty(day)) dailyCounts[day]++;
+      });
+      const chartData = Object.entries(dailyCounts).map(([date, count]) => ({ date, count }));
+      renderChart(chartData);
 
-      // Try analytics endpoints (requires Netlify Analytics add-on)
-      const analyticsEndpoints = [
-        { url: `/api/v1/sites/${SITE_ID}/analytics/pages?from=${fromStr}&to=${toStr}&timezone=America/New_York&limit=20`, target: 'pages' },
-        { url: `/api/v1/sites/${SITE_ID}/analytics/sources?from=${fromStr}&to=${toStr}&timezone=America/New_York&limit=20`, target: 'sources' },
-        { url: `/api/v1/sites/${SITE_ID}/analytics/visitors?from=${fromStr}&to=${toStr}&timezone=America/New_York&resolution=day`, target: 'visitors' },
-        { url: `/api/v1/sites/${SITE_ID}/analytics/pageviews?from=${fromStr}&to=${toStr}&timezone=America/New_York&resolution=day`, target: 'pageviews' }
-      ];
+      // Top pages
+      const pageCounts = {};
+      visits.forEach(v => { pageCounts[v.page] = (pageCounts[v.page] || 0) + 1; });
+      renderRankedList('top-pages-body', pageCounts, 'var(--teal)');
 
-      let hasAnalytics = true;
+      // Top sources
+      renderRankedList('top-sources-body', refCounts, 'var(--gold)');
 
-      for (const ep of analyticsEndpoints) {
-        try {
-          const resp = await fetch(`https://api.netlify.com${ep.url}`, {
-            headers: { 'Authorization': `Bearer ${NETLIFY_TOKEN}` }
-          });
+      // Screen sizes
+      const screenCounts = {};
+      visits.forEach(v => {
+        if (v.screen) {
+          const w = parseInt(v.screen);
+          const label = w <= 480 ? 'Mobile' : w <= 1024 ? 'Tablet' : 'Desktop';
+          screenCounts[label] = (screenCounts[label] || 0) + 1;
+        }
+      });
+      renderRankedList('screen-sizes-body', screenCounts, 'var(--green)');
 
-          if (!resp.ok) {
-            if (resp.status === 404 || resp.status === 402) {
-              hasAnalytics = false;
-              break;
-            }
-            continue;
-          }
+      // Devices (from UA)
+      const deviceCounts = {};
+      visits.forEach(v => {
+        const ua = v.ua.toLowerCase();
+        const device = ua.includes('iphone') || ua.includes('android') ? 'Mobile' :
+                       ua.includes('ipad') || ua.includes('tablet') ? 'Tablet' : 'Desktop';
+        const browser = ua.includes('chrome') && !ua.includes('edg') ? 'Chrome' :
+                        ua.includes('safari') && !ua.includes('chrome') ? 'Safari' :
+                        ua.includes('firefox') ? 'Firefox' :
+                        ua.includes('edg') ? 'Edge' : 'Other';
+        deviceCounts[browser + ' (' + device + ')'] = (deviceCounts[browser + ' (' + device + ')'] || 0) + 1;
+      });
+      renderRankedList('devices-body', deviceCounts, 'var(--blue)');
 
-          const data = await resp.json();
-
-          if (ep.target === 'pages' && data.data) {
-            renderTopPages(data.data);
-            const total = data.data.reduce((s, p) => s + (p.count || 0), 0);
-            document.getElementById('t-pageviews').textContent = total.toLocaleString();
-            if (data.data[0]) document.getElementById('t-toppage').textContent = data.data[0].path || data.data[0].resource || '/';
-          }
-
-          if (ep.target === 'sources' && data.data) {
-            renderTopSources(data.data);
-          }
-
-          if (ep.target === 'visitors' && data.data) {
-            const total = data.data.reduce((s, d) => s + (d.count || 0), 0);
-            document.getElementById('t-visitors').textContent = total.toLocaleString();
-          }
-
-          if (ep.target === 'pageviews' && data.data) {
-            renderChart(data.data);
-          }
-        } catch (e) { console.warn('Analytics endpoint failed:', ep.target, e); }
-      }
-
-      if (!hasAnalytics) {
-        // Fallback: show deploy-based activity from Netlify API
-        document.getElementById('t-pageviews').textContent = 'N/A';
-        document.getElementById('t-visitors').textContent = 'N/A';
-        document.getElementById('t-toppage').textContent = 'Enable analytics';
-
-        document.getElementById('top-pages-body').innerHTML = '<tr><td colspan="2" style="padding:1.5rem;text-align:center;color:var(--gray-400);">Netlify Analytics not enabled. <a href="https://app.netlify.com/projects/sml-wicked-striper/analytics" target="_blank" style="color:var(--teal);">Enable it</a> for page-level traffic data, or add Google Analytics.</td></tr>';
-        document.getElementById('top-sources-body').innerHTML = '<tr><td colspan="2" style="padding:1.5rem;text-align:center;color:var(--gray-400);">Requires Netlify Analytics or Google Analytics.</td></tr>';
-        document.getElementById('chart-container').innerHTML = '<div style="text-align:center;color:var(--gray-400);width:100%;padding:2rem 0;">Enable Netlify Analytics to see daily traffic charts.</div>';
-
-        // Still show deploys info
-        try {
-          const deplResp = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/deploys?per_page=10`, {
-            headers: { 'Authorization': `Bearer ${NETLIFY_TOKEN}` }
-          });
-          if (deplResp.ok) {
-            const deploys = await deplResp.json();
-            const successDeploys = deploys.filter(d => d.state === 'ready');
-            document.getElementById('t-pageviews').textContent = successDeploys.length;
-            document.getElementById('t-pageviews').parentElement.querySelector('.stat-label').textContent = 'Recent Deploys';
-            document.getElementById('t-pageviews').parentElement.querySelector('.stat-sub').textContent = 'Last 10 deployments';
-          }
-        } catch (e) {}
-      }
     } catch (err) {
       console.error('Traffic fetch error:', err);
-      document.getElementById('t-pageviews').textContent = 'Error';
+      document.getElementById('t-total').textContent = 'Error';
     }
   }
 
-  function renderTopPages(pages) {
-    const tbody = document.getElementById('top-pages-body');
-    if (!pages || pages.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="2" style="padding:1rem;text-align:center;color:var(--gray-500);">No data yet</td></tr>';
-      return;
-    }
-    const max = pages[0].count || 1;
-    tbody.innerHTML = pages.slice(0, 15).map(p => {
-      const pct = Math.round((p.count / max) * 100);
-      return `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-        <td style="padding:0.6rem 1rem;font-size:0.85rem;color:var(--gray-300);">
-          <div style="position:relative;">
-            <div style="position:absolute;left:0;top:0;bottom:0;width:${pct}%;background:rgba(14,165,233,0.08);border-radius:3px;"></div>
-            <span style="position:relative;">${escapeHtml(p.path || p.resource || '/')}</span>
-          </div>
-        </td>
-        <td style="padding:0.6rem 1rem;text-align:right;font-weight:600;color:var(--white);font-size:0.85rem;">${(p.count || 0).toLocaleString()}</td>
-      </tr>`;
-    }).join('');
-  }
-
-  function renderTopSources(sources) {
-    const tbody = document.getElementById('top-sources-body');
-    if (!sources || sources.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="2" style="padding:1rem;text-align:center;color:var(--gray-500);">No referrer data yet</td></tr>';
-      return;
-    }
-    const max = sources[0].count || 1;
-    tbody.innerHTML = sources.slice(0, 15).map(s => {
-      const pct = Math.round((s.count / max) * 100);
-      return `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
-        <td style="padding:0.6rem 1rem;font-size:0.85rem;color:var(--gray-300);">
-          <div style="position:relative;">
-            <div style="position:absolute;left:0;top:0;bottom:0;width:${pct}%;background:rgba(245,158,11,0.08);border-radius:3px;"></div>
-            <span style="position:relative;">${escapeHtml(s.path || s.resource || 'Direct')}</span>
-          </div>
-        </td>
-        <td style="padding:0.6rem 1rem;text-align:right;font-weight:600;color:var(--white);font-size:0.85rem;">${(s.count || 0).toLocaleString()}</td>
-      </tr>`;
+  function renderRankedList(containerId, counts, color) {
+    const el = document.getElementById(containerId);
+    const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]);
+    if (sorted.length === 0) { el.textContent = 'No data yet.'; return; }
+    const max = sorted[0][1];
+    el.innerHTML = sorted.slice(0, 10).map(([name, count]) => {
+      const pct = Math.round((count / max) * 100);
+      return `<div style="margin-bottom:0.6rem;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.2rem;">
+          <span style="color:var(--gray-300);">${escapeHtml(name)}</span>
+          <span style="color:var(--white);font-weight:600;">${count}</span>
+        </div>
+        <div style="height:4px;background:var(--navy);border-radius:2px;overflow:hidden;">
+          <div style="width:${pct}%;height:100%;background:${color};border-radius:2px;"></div>
+        </div>
+      </div>`;
     }).join('');
   }
 
   function renderChart(data) {
     const container = document.getElementById('chart-container');
     if (!data || data.length === 0) {
-      container.innerHTML = '<div style="text-align:center;color:var(--gray-500);width:100%;padding:2rem;">No chart data</div>';
+      container.innerHTML = '<div style="text-align:center;color:var(--gray-500);width:100%;padding:3rem 0;">No data yet</div>';
       return;
     }
-    const max = Math.max(...data.map(d => d.count || 0), 1);
+    const max = Math.max(...data.map(d => d.count), 1);
     container.innerHTML = data.map(d => {
-      const h = Math.max(((d.count || 0) / max) * 180, 2);
-      const date = new Date(d.date || d.ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-      return `<div class="chart-bar" style="height:${h}px;"><div class="chart-tip">${date}: ${d.count || 0}</div></div>`;
+      const h = Math.max((d.count / max) * 180, 2);
+      const label = new Date(d.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      return `<div class="chart-bar" style="height:${h}px;"><div class="chart-tip">${label}: ${d.count}</div></div>`;
     }).join('');
   }
+
+  // ========== EMAIL NOTIFICATIONS ==========
+  async function saveNotifEmail() {
+    const email = document.getElementById('notif-email').value.trim();
+    if (!email) return;
+    try {
+      // Get the booking form ID
+      const fId = await getFormId();
+      // Set notification email on the Netlify site
+      const resp = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}`, {
+        method: 'PATCH',
+        headers: { 'Authorization': `Bearer ${NETLIFY_TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ notification_email: email })
+      });
+      // Also create a form notification hook
+      const hookResp = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/notifications`, {
+        headers: { 'Authorization': `Bearer ${NETLIFY_TOKEN}` }
+      });
+      const hooks = hookResp.ok ? await hookResp.json() : [];
+      const existing = hooks.find(h => h.type === 'email' && h.event === 'submission_created');
+      if (!existing) {
+        await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/notifications`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${NETLIFY_TOKEN}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'email', event: 'submission_created', email: email, form_id: fId })
+        });
+      }
+      localStorage.setItem('ws_notif_email', email);
+      document.getElementById('notif-status').innerHTML = '<span style="color:var(--green);">&#10003; Email notification saved! You\'ll receive an email for each new booking.</span>';
+    } catch (err) {
+      document.getElementById('notif-status').innerHTML = '<span style="color:var(--red);">Error: ' + escapeHtml(err.message) + '</span>';
+    }
+  }
+
+  // Load saved notification email
+  (function() {
+    const saved = localStorage.getItem('ws_notif_email');
+    if (saved) document.getElementById('notif-email').value = saved;
+  })();
 
   // ========== CONFIRM BOOKING ==========
   function confirmBooking(bookingId, idx) {
