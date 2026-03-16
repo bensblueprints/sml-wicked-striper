@@ -1531,7 +1531,7 @@
               ${status !== 'cancelled' ? `
               <button class="action-btn action-btn-edit" onclick="event.stopPropagation();document.getElementById('editdate-${globalIdx}').style.display='flex';">&#9998; Edit Date</button>
               <button class="action-btn action-btn-calendar" onclick="event.stopPropagation();addToCalendar(${globalIdx})">&#128197; Add to Calendar</button>
-              <button class="action-btn" onclick="event.stopPropagation();cancelBooking('${b.id}',${JSON.stringify(b.name).replace(/'/g,"\\'")});" style="background:transparent;color:var(--red);border:1px solid rgba(239,68,68,0.3);">&#10007; Cancel</button>
+              <button class="action-btn" onclick="event.stopPropagation();cancelBooking('${b.id}');" data-name="${escapeHtml(b.name)}" style="background:transparent;color:var(--red);border:1px solid rgba(239,68,68,0.3);">&#10007; Cancel</button>
               ` : ''}
             </div>
           </td>
@@ -1866,7 +1866,9 @@
     }
   }
 
-  function cancelBooking(bookingId, name) {
+  function cancelBooking(bookingId) {
+    var booking = allBookings.find(function(b){ return b.id === bookingId; });
+    var name = booking ? booking.name : 'this guest';
     if (confirm('Cancel this booking for ' + name + '?')) {
       setStatus(bookingId, 'cancelled');
       closeAllMenus();
