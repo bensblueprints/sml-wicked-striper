@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | SML Wicked Striper Guide Service</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎣</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0b1a2e;
+      --navy-light: #112240;
+      --navy-lighter: #1a2f4a;
+      --navy-card: #162a45;
+      --ocean: #1a73e8;
+      --teal: #0ea5e9;
+      --gold: #f59e0b;
+      --gold-light: #fbbf24;
+      --gold-dim: rgba(245, 158, 11, 0.15);
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --gray-900: #0f172a;
+      --green: #22c55e;
+      --green-dim: rgba(34, 197, 94, 0.15);
+      --blue: #3b82f6;
+      --blue-dim: rgba(59, 130, 246, 0.15);
+      --red: #ef4444;
+      --font-display: 'Bebas Neue', Impact, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--gray-300);
+      background: var(--navy);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ========== LOGIN SCREEN ========== */
+    #login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy) 0%, #0d2137 50%, var(--navy-light) 100%);
+    }
+
+    .login-container {
+      background: var(--navy-light);
+      border: 1px solid var(--navy-lighter);
+      border-radius: var(--radius);
+      padding: 3rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .login-logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--white);
+      letter-spacing: 3px;
+      margin-bottom: 0.25rem;
+    }
+
+    .login-logo span { color: var(--gold); }
+
+    .login-subtitle {
+      color: var(--gray-400);
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: var(--navy);
+      border: 1px solid var(--navy-lighter);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 1rem;
+    }
+
+    .login-input:focus {
+      border-color: var(--gold);
+    }
+
+    .login-input::placeholder { color: var(--gray-500); }
+
+    .login-btn {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .login-btn:hover { background: var(--gold-light); }
+    .login-btn:active { transform: scale(0.98); }
+
+    .login-error {
+      color: var(--red);
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+      display: none;
+    }
+
+    /* ========== DASHBOARD ========== */
+    #dashboard {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: var(--navy-light);
+      border-bottom: 1px solid var(--navy-lighter);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .topbar-logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--white);
+      letter-spacing: 2px;
+    }
+
+    .topbar-logo span { color: var(--gold); }
+
+    .topbar-badge {
+      background: var(--gold-dim);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .refresh-btn, .logout-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .refresh-btn {
+      background: var(--navy-lighter);
+      color: var(--gray-300);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .refresh-btn:hover { background: var(--navy-card); color: var(--white); }
+
+    .logout-btn {
+      background: transparent;
+      color: var(--gray-400);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logout-btn:hover { color: var(--red); border-color: rgba(239,68,68,0.3); }
+
+    .dashboard-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* ========== STATS CARDS ========== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--navy-light);
+      border: 1px solid var(--navy-lighter);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(245, 158, 11, 0.2);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--white);
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+
+    .stat-value.gold { color: var(--gold); }
+    .stat-value.teal { color: var(--teal); }
+    .stat-value.green { color: var(--green); }
+
+    .stat-sub {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+      margin-top: 0.5rem;
+    }
+
+    /* ========== CONTROLS ========== */
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 250px;
+      padding: 0.7rem 1rem;
+      padding-left: 2.5rem;
+      background: var(--navy-light);
+      border: 1px solid var(--navy-lighter);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus { border-color: var(--gold); }
+    .search-input::placeholder { color: var(--gray-500); }
+
+    .search-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-500);
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+
+    .filter-select {
+      padding: 0.7rem 1rem;
+      background: var(--navy-light);
+      border: 1px solid var(--navy-lighter);
+      border-radius: 8px;
+      color: var(--gray-300);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .filter-select:focus { border-color: var(--gold); }
+
+    .filter-select option {
+      background: var(--navy-light);
+      color: var(--gray-300);
+    }
+
+    /* ========== TABLE ========== */
+    .table-container {
+      background: var(--navy-light);
+      border: 1px solid var(--navy-lighter);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      background: var(--navy-card);
+      padding: 0.85rem 1rem;
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--navy-lighter);
+      position: sticky;
+      top: 0;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+
+    tbody tr:hover {
+      background: rgba(245, 158, 11, 0.04);
+    }
+
+    tbody td {
+      padding: 0.85rem 1rem;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    .td-name {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .td-email {
+      color: var(--teal);
+    }
+
+    .td-date {
+      color: var(--gray-400);
+      font-size: 0.8rem;
+    }
+
+    .td-amount {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ========== STATUS BADGES ========== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .badge-new {
+      background: var(--gold-dim);
+      color: var(--gold);
+    }
+
+    .badge-confirmed {
+      background: var(--blue-dim);
+      color: var(--blue);
+    }
+
+    .badge-completed {
+      background: var(--green-dim);
+      color: var(--green);
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* ========== STATUS DROPDOWN ========== */
+    .status-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .status-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 50;
+      background: var(--navy-card);
+      border: 1px solid var(--navy-lighter);
+      border-radius: 8px;
+      padding: 0.35rem;
+      margin-top: 0.35rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      min-width: 140px;
+    }
+
+    .status-menu.open { display: block; }
+
+    .status-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: var(--gray-300);
+      cursor: pointer;
+      transition: background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      font-family: var(--font-body);
+    }
+
+    .status-option:hover {
+      background: rgba(255,255,255,0.06);
+      color: var(--white);
+    }
+
+    /* ========== EXPANDED ROW ========== */
+    .detail-row {
+      display: none;
+    }
+
+    .detail-row.open {
+      display: table-row;
+    }
+
+    .detail-cell {
+      padding: 1.25rem 1rem 1.25rem 2.5rem;
+      background: rgba(0,0,0,0.15);
+      border-bottom: 1px solid var(--navy-lighter);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .detail-item label {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.2rem;
+    }
+
+    .detail-item span {
+      font-size: 0.88rem;
+      color: var(--gray-200);
+    }
+
+    .detail-notes {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--navy-lighter);
+    }
+
+    .detail-notes label {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.3rem;
+    }
+
+    .detail-notes p {
+      font-size: 0.88rem;
+      color: var(--gray-300);
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+
+    /* ========== LOADING / EMPTY ========== */
+    .loading-state, .empty-state, .error-state {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--navy-lighter);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text, .empty-text {
+      color: var(--gray-400);
+      font-size: 0.9rem;
+    }
+
+    .error-text {
+      color: var(--red);
+      font-size: 0.9rem;
+    }
+
+    .error-detail {
+      color: var(--gray-500);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ========== PAGINATION ========== */
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1rem;
+      border-top: 1px solid var(--navy-lighter);
+      font-size: 0.8rem;
+      color: var(--gray-500);
+    }
+
+    .pagination {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .page-btn {
+      padding: 0.4rem 0.75rem;
+      background: var(--navy-card);
+      border: 1px solid var(--navy-lighter);
+      border-radius: 6px;
+      color: var(--gray-400);
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .page-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .page-btn.active { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 600; }
+    .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .dashboard-content { padding: 1rem; }
+      .topbar { padding: 0.75rem 1rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+      .stat-card { padding: 1rem; }
+      .stat-value { font-size: 2rem; }
+      .controls { gap: 0.75rem; }
+      .search-wrapper { min-width: 100%; }
+      .detail-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .topbar-badge { display: none; }
+      .topbar-right { gap: 0.5rem; }
+      .refresh-btn span, .logout-btn span { display: none; }
+    }
+
+    /* ========== SCROLLBAR ========== */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--navy-lighter); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gray-600); }
+  </style>
+</head>
+<body>
+
+<!-- ==================== LOGIN SCREEN ==================== -->
+<div id="login-screen">
+  <div class="login-container">
+    <div class="login-logo">WICKED <span>STRIPER</span></div>
+    <div class="login-subtitle">Admin Dashboard</div>
+    <input type="password" class="login-input" id="password-input" placeholder="Enter admin password" autofocus>
+    <button class="login-btn" id="login-btn" onclick="attemptLogin()">SIGN IN</button>
+    <div class="login-error" id="login-error">Invalid password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ==================== DASHBOARD ==================== -->
+<div id="dashboard">
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">WICKED <span>STRIPER</span></div>
+      <span class="topbar-badge">Admin</span>
+    </div>
+    <div class="topbar-right">
+      <span style="color: var(--gray-500); font-size: 0.78rem;" id="last-refresh"></span>
+      <button class="refresh-btn" onclick="fetchBookings()">&#8635; <span>Refresh</span></button>
+      <button class="logout-btn" onclick="logout()">&#9109; <span>Logout</span></button>
+    </div>
+  </div>
+
+  <div class="dashboard-content">
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Bookings</div>
+        <div class="stat-value gold" id="stat-total">--</div>
+        <div class="stat-sub">All time submissions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Last 7 Days</div>
+        <div class="stat-value teal" id="stat-recent">--</div>
+        <div class="stat-sub">Recent submissions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Confirmed</div>
+        <div class="stat-value green" id="stat-confirmed">--</div>
+        <div class="stat-sub">Ready to fish</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">New / Unreviewed</div>
+        <div class="stat-value" id="stat-new" style="color: var(--gray-300);">--</div>
+        <div class="stat-sub">Needs attention</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="search-wrapper">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" class="search-input" id="search-input" placeholder="Search by name, email, phone, or trip type..." oninput="applyFilters()">
+      </div>
+      <select class="filter-select" id="status-filter" onchange="applyFilters()">
+        <option value="all">All Status</option>
+        <option value="new">New</option>
+        <option value="confirmed">Confirmed</option>
+        <option value="completed">Completed</option>
+      </select>
+      <select class="filter-select" id="sort-select" onchange="applyFilters()">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+        <option value="name">By Name</option>
+        <option value="date">By Trip Date</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Submitted</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Trip Type</th>
+              <th>Guests</th>
+              <th>Trip Date</th>
+              <th>Est. Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="bookings-body">
+            <tr>
+              <td colspan="9">
+                <div class="loading-state">
+                  <div class="loading-spinner"></div>
+                  <div class="loading-text">Loading bookings...</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-footer">
+        <span id="showing-count">Showing 0 bookings</span>
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ========== CONFIGURATION ==========
+  const SITE_ID = '63f0e106-c602-4e7c-8f72-36d8dd69011b';
+  const NETLIFY_TOKEN = 'nfp_2r8NMnaW5BxpaWHWXXu6ZbePvQAQjqkp682b';
+  const PASSWORD_HASH = 'cf6940b85ac6f5f8f2eeb97651f916fce61da18d843c172fc4f7c5d936c47f2d';
+  const FORM_NAME = 'booking';
+  const PER_PAGE = 20;
+
+  let allBookings = [];
+  let filteredBookings = [];
+  let currentPage = 1;
+  let formId = null;
+
+  // ========== AUTH ==========
+  async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function attemptLogin() {
+    const pw = document.getElementById('password-input').value;
+    const hash = await sha256(pw);
+    if (hash === PASSWORD_HASH) {
+      sessionStorage.setItem('ws_auth', '1');
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      document.getElementById('login-error').style.display = 'none';
+      fetchBookings();
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+      document.getElementById('password-input').value = '';
+      document.getElementById('password-input').focus();
+    }
+  }
+
+  function logout() {
+    sessionStorage.removeItem('ws_auth');
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('password-input').value = '';
+  }
+
+  // Enter key to login
+  document.getElementById('password-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') attemptLogin();
+  });
+
+  // Check session on load
+  if (sessionStorage.getItem('ws_auth') === '1') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    fetchBookings();
+  }
+
+  // ========== DATA FETCHING ==========
+  async function getFormId() {
+    if (formId) return formId;
+    const resp = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/forms`, {
+      headers: { 'Authorization': `Bearer ${NETLIFY_TOKEN}` }
+    });
+    if (!resp.ok) throw new Error(`Failed to fetch forms: ${resp.status} ${resp.statusText}`);
+    const forms = await resp.json();
+    const bookingForm = forms.find(f => f.name === FORM_NAME);
+    if (!bookingForm) throw new Error(`Form "${FORM_NAME}" not found. Available forms: ${forms.map(f => f.name).join(', ') || 'none'}`);
+    formId = bookingForm.id;
+    return formId;
+  }
+
+  async function fetchBookings() {
+    const tbody = document.getElementById('bookings-body');
+    tbody.innerHTML = `<tr><td colspan="9"><div class="loading-state"><div class="loading-spinner"></div><div class="loading-text">Loading bookings...</div></div></td></tr>`;
+
+    try {
+      const fId = await getFormId();
+
+      // Fetch all submissions (paginate if needed)
+      let page = 1;
+      let allSubs = [];
+      let keepFetching = true;
+
+      while (keepFetching) {
+        const resp = await fetch(`https://api.netlify.com/api/v1/forms/${fId}/submissions?per_page=100&page=${page}`, {
+          headers: { 'Authorization': `Bearer ${NETLIFY_TOKEN}` }
+        });
+        if (!resp.ok) throw new Error(`Failed to fetch submissions: ${resp.status} ${resp.statusText}`);
+        const subs = await resp.json();
+        if (subs.length === 0) {
+          keepFetching = false;
+        } else {
+          allSubs = allSubs.concat(subs);
+          if (subs.length < 100) keepFetching = false;
+          page++;
+        }
+      }
+
+      allBookings = allSubs.map(s => ({
+        id: s.id,
+        created_at: s.created_at,
+        name: s.data?.name || s.data?.Name || s.data?.['full-name'] || s.data?.fullName || '--',
+        email: s.data?.email || s.data?.Email || '--',
+        phone: s.data?.phone || s.data?.Phone || s.data?.tel || '--',
+        trip_type: s.data?.['trip-type'] || s.data?.tripType || s.data?.['Trip Type'] || s.data?.trip_type || '--',
+        guests: s.data?.guests || s.data?.Guests || s.data?.['number-of-guests'] || s.data?.numberOfGuests || '--',
+        preferred_date: s.data?.['preferred-date'] || s.data?.preferredDate || s.data?.['Preferred Date'] || s.data?.date || s.data?.preferred_date || '--',
+        estimated_total: s.data?.['estimated-total'] || s.data?.estimatedTotal || s.data?.['Estimated Total'] || s.data?.total || s.data?.estimated_total || '--',
+        notes: s.data?.notes || s.data?.Notes || s.data?.message || s.data?.Message || '',
+        raw: s.data || {}
+      }));
+
+      updateStats();
+      applyFilters();
+
+      const now = new Date();
+      document.getElementById('last-refresh').textContent = `Updated ${now.toLocaleTimeString()}`;
+    } catch (err) {
+      tbody.innerHTML = `<tr><td colspan="9"><div class="error-state"><div class="error-text">Failed to load bookings</div><div class="error-detail">${escapeHtml(err.message)}</div></div></td></tr>`;
+      console.error(err);
+    }
+  }
+
+  // ========== STATUS MANAGEMENT ==========
+  function getStatuses() {
+    try {
+      return JSON.parse(localStorage.getItem('ws_booking_statuses') || '{}');
+    } catch { return {}; }
+  }
+
+  function setStatus(bookingId, status) {
+    const statuses = getStatuses();
+    statuses[bookingId] = status;
+    localStorage.setItem('ws_booking_statuses', JSON.stringify(statuses));
+    updateStats();
+    applyFilters();
+  }
+
+  function getStatus(bookingId) {
+    return getStatuses()[bookingId] || 'new';
+  }
+
+  function renderBadge(status) {
+    const labels = { new: 'New', confirmed: 'Confirmed', completed: 'Completed' };
+    return `<span class="badge badge-${status}"><span class="badge-dot"></span>${labels[status] || 'New'}</span>`;
+  }
+
+  // ========== STATS ==========
+  function updateStats() {
+    const total = allBookings.length;
+    const now = new Date();
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const recent = allBookings.filter(b => new Date(b.created_at) >= weekAgo).length;
+    const statuses = getStatuses();
+    const confirmed = allBookings.filter(b => statuses[b.id] === 'confirmed').length;
+    const newCount = allBookings.filter(b => !statuses[b.id] || statuses[b.id] === 'new').length;
+
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-recent').textContent = recent;
+    document.getElementById('stat-confirmed').textContent = confirmed;
+    document.getElementById('stat-new').textContent = newCount;
+  }
+
+  // ========== FILTERING & SORTING ==========
+  function applyFilters() {
+    const query = document.getElementById('search-input').value.toLowerCase().trim();
+    const statusFilter = document.getElementById('status-filter').value;
+    const sortBy = document.getElementById('sort-select').value;
+
+    filteredBookings = allBookings.filter(b => {
+      // Status filter
+      const bStatus = getStatus(b.id);
+      if (statusFilter !== 'all' && bStatus !== statusFilter) return false;
+
+      // Search filter
+      if (query) {
+        const searchable = [b.name, b.email, b.phone, b.trip_type, b.notes].join(' ').toLowerCase();
+        if (!searchable.includes(query)) return false;
+      }
+      return true;
+    });
+
+    // Sort
+    filteredBookings.sort((a, b) => {
+      switch (sortBy) {
+        case 'newest': return new Date(b.created_at) - new Date(a.created_at);
+        case 'oldest': return new Date(a.created_at) - new Date(b.created_at);
+        case 'name': return (a.name || '').localeCompare(b.name || '');
+        case 'date':
+          const da = a.preferred_date !== '--' ? new Date(a.preferred_date) : new Date(0);
+          const db = b.preferred_date !== '--' ? new Date(b.preferred_date) : new Date(0);
+          return db - da;
+        default: return 0;
+      }
+    });
+
+    currentPage = 1;
+    renderTable();
+  }
+
+  // ========== RENDERING ==========
+  function renderTable() {
+    const tbody = document.getElementById('bookings-body');
+    const totalPages = Math.ceil(filteredBookings.length / PER_PAGE) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * PER_PAGE;
+    const pageItems = filteredBookings.slice(start, start + PER_PAGE);
+
+    if (filteredBookings.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="empty-text">No bookings found</div></div></td></tr>`;
+      document.getElementById('showing-count').textContent = 'Showing 0 bookings';
+      document.getElementById('pagination').innerHTML = '';
+      return;
+    }
+
+    let html = '';
+    pageItems.forEach((b, idx) => {
+      const globalIdx = start + idx;
+      const status = getStatus(b.id);
+      const submitted = formatDate(b.created_at);
+      const tripDate = b.preferred_date !== '--' ? formatDate(b.preferred_date, true) : '--';
+
+      html += `
+        <tr onclick="toggleDetail('detail-${globalIdx}', event)">
+          <td class="td-date">${submitted}</td>
+          <td class="td-name">${escapeHtml(b.name)}</td>
+          <td class="td-email">${escapeHtml(b.email)}</td>
+          <td>${escapeHtml(b.phone)}</td>
+          <td>${escapeHtml(b.trip_type)}</td>
+          <td style="text-align:center;">${escapeHtml(String(b.guests))}</td>
+          <td>${tripDate}</td>
+          <td class="td-amount">${escapeHtml(String(b.estimated_total))}</td>
+          <td>
+            <div class="status-dropdown" onclick="event.stopPropagation();">
+              <div onclick="toggleStatusMenu('smenu-${globalIdx}')">${renderBadge(status)}</div>
+              <div class="status-menu" id="smenu-${globalIdx}">
+                <button class="status-option" onclick="setStatus('${b.id}','new'); closeAllMenus();">
+                  <span class="badge-dot" style="background:var(--gold);width:6px;height:6px;border-radius:50%;"></span> New
+                </button>
+                <button class="status-option" onclick="setStatus('${b.id}','confirmed'); closeAllMenus();">
+                  <span class="badge-dot" style="background:var(--blue);width:6px;height:6px;border-radius:50%;"></span> Confirmed
+                </button>
+                <button class="status-option" onclick="setStatus('${b.id}','completed'); closeAllMenus();">
+                  <span class="badge-dot" style="background:var(--green);width:6px;height:6px;border-radius:50%;"></span> Completed
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="detail-row" id="detail-${globalIdx}">
+          <td colspan="9" class="detail-cell">
+            <div class="detail-grid">
+              <div class="detail-item"><label>Full Name</label><span>${escapeHtml(b.name)}</span></div>
+              <div class="detail-item"><label>Email</label><span>${escapeHtml(b.email)}</span></div>
+              <div class="detail-item"><label>Phone</label><span>${escapeHtml(b.phone)}</span></div>
+              <div class="detail-item"><label>Trip Type</label><span>${escapeHtml(b.trip_type)}</span></div>
+              <div class="detail-item"><label>Number of Guests</label><span>${escapeHtml(String(b.guests))}</span></div>
+              <div class="detail-item"><label>Preferred Date</label><span>${tripDate}</span></div>
+              <div class="detail-item"><label>Estimated Total</label><span>${escapeHtml(String(b.estimated_total))}</span></div>
+              <div class="detail-item"><label>Submitted</label><span>${formatDate(b.created_at, false, true)}</span></div>
+            </div>
+            ${b.notes ? `<div class="detail-notes"><label>Notes / Message</label><p>${escapeHtml(b.notes)}</p></div>` : ''}
+            ${renderRawFields(b.raw, b)}
+          </td>
+        </tr>
+      `;
+    });
+
+    tbody.innerHTML = html;
+    document.getElementById('showing-count').textContent = `Showing ${start + 1}-${Math.min(start + PER_PAGE, filteredBookings.length)} of ${filteredBookings.length} bookings`;
+    renderPagination(totalPages);
+  }
+
+  function renderRawFields(raw, booking) {
+    // Show any fields not already displayed
+    const knownKeys = new Set(['name','Name','full-name','fullName','email','Email','phone','Phone','tel',
+      'trip-type','tripType','Trip Type','trip_type','guests','Guests','number-of-guests','numberOfGuests',
+      'preferred-date','preferredDate','Preferred Date','date','preferred_date',
+      'estimated-total','estimatedTotal','Estimated Total','total','estimated_total',
+      'notes','Notes','message','Message','ip','user_agent','referrer']);
+    const extra = Object.entries(raw).filter(([k]) => !knownKeys.has(k));
+    if (extra.length === 0) return '';
+    let html = '<div class="detail-notes" style="margin-top:0.75rem;"><label>Additional Form Data</label><div class="detail-grid" style="margin-top:0.5rem;">';
+    extra.forEach(([k, v]) => {
+      html += `<div class="detail-item"><label>${escapeHtml(k)}</label><span>${escapeHtml(String(v || '--'))}</span></div>`;
+    });
+    html += '</div></div>';
+    return html;
+  }
+
+  function renderPagination(totalPages) {
+    const container = document.getElementById('pagination');
+    if (totalPages <= 1) { container.innerHTML = ''; return; }
+
+    let html = `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo;</button>`;
+
+    // Show max 7 page buttons
+    let pages = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (currentPage > 3) pages.push('...');
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) pages.push(i);
+      if (currentPage < totalPages - 2) pages.push('...');
+      pages.push(totalPages);
+    }
+
+    pages.forEach(p => {
+      if (p === '...') {
+        html += `<span style="color:var(--gray-500);padding:0 0.25rem;">...</span>`;
+      } else {
+        html += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`;
+      }
+    });
+
+    html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>&raquo;</button>`;
+    container.innerHTML = html;
+  }
+
+  function goToPage(p) {
+    const totalPages = Math.ceil(filteredBookings.length / PER_PAGE) || 1;
+    if (p < 1 || p > totalPages) return;
+    currentPage = p;
+    renderTable();
+    document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ========== UI INTERACTIONS ==========
+  function toggleDetail(id, event) {
+    // Don't toggle if clicking on status dropdown
+    if (event && event.target.closest('.status-dropdown')) return;
+    const row = document.getElementById(id);
+    if (row) row.classList.toggle('open');
+  }
+
+  function toggleStatusMenu(id) {
+    closeAllMenus();
+    const menu = document.getElementById(id);
+    if (menu) menu.classList.toggle('open');
+  }
+
+  function closeAllMenus() {
+    document.querySelectorAll('.status-menu').forEach(m => m.classList.remove('open'));
+  }
+
+  // Close menus on outside click
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.status-dropdown')) closeAllMenus();
+  });
+
+  // ========== UTILITIES ==========
+  function escapeHtml(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function formatDate(dateStr, dateOnly, full) {
+    if (!dateStr || dateStr === '--') return '--';
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr;
+      if (dateOnly) {
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+      if (full) {
+        return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+      }
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    } catch { return dateStr; }
+  }
+</script>
+
+</body>
+</html>
