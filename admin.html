@@ -359,6 +359,126 @@
       transition: opacity 0.2s;
     }
     .chart-bar:hover { opacity: 0.8; }
+    /* ========== BOOKING ACTIONS ========== */
+    .action-bar {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--navy-lighter);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .action-btn {
+      padding: 0.55rem 1.2rem;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .action-btn-confirm {
+      background: var(--green);
+      color: var(--navy);
+    }
+    .action-btn-confirm:hover { background: #16a34a; transform: translateY(-1px); }
+    .action-btn-calendar {
+      background: var(--blue);
+      color: white;
+    }
+    .action-btn-calendar:hover { background: #2563eb; transform: translateY(-1px); }
+    .action-btn-edit {
+      background: var(--navy-lighter);
+      color: var(--gray-300);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .action-btn-edit:hover { background: var(--navy-card); color: var(--white); }
+    .action-btn-complete {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .action-btn-complete:hover { background: var(--gold-light); }
+    .action-confirmed {
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .edit-date-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: var(--navy);
+      border-radius: 8px;
+      border: 1px solid var(--navy-lighter);
+    }
+    .edit-date-row label {
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .edit-date-row input {
+      padding: 0.5rem 0.75rem;
+      background: var(--navy-light);
+      border: 1px solid var(--navy-lighter);
+      border-radius: 6px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .edit-date-row input:focus { border-color: var(--gold); }
+    .edit-date-row .save-btn {
+      padding: 0.5rem 1rem;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .edit-date-row .save-btn:hover { background: var(--gold-light); }
+
+    /* Calendar settings */
+    .gcal-settings {
+      background: var(--navy-light);
+      border: 1px solid var(--navy-lighter);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .gcal-settings h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--white);
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .gcal-connected {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--green-dim);
+      color: var(--green);
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
     .chart-bar .chart-tip {
       display: none;
       position: absolute;
@@ -706,6 +826,7 @@
     <div style="display:flex;gap:0.5rem;margin-bottom:1.5rem;">
       <button class="tab-btn active" id="tab-bookings" onclick="switchTab('bookings')">Bookings</button>
       <button class="tab-btn" id="tab-traffic" onclick="switchTab('traffic')">Traffic & Analytics</button>
+      <button class="tab-btn" id="tab-settings" onclick="switchTab('settings')">Settings</button>
     </div>
 
     <!-- ==================== BOOKINGS TAB ==================== -->
@@ -849,8 +970,45 @@
       <p style="color:var(--gray-500);font-size:0.8rem;text-align:center;">Analytics data from Netlify. If analytics isn't enabled, <a href="https://app.netlify.com/projects/sml-wicked-striper/analytics" target="_blank" style="color:var(--teal);">enable it here</a>. Alternatively, add a free <a href="https://analytics.google.com" target="_blank" style="color:var(--teal);">Google Analytics</a> tag.</p>
     </div><!-- end panel-traffic -->
 
+    <!-- ==================== SETTINGS TAB ==================== -->
+    <div id="panel-settings" style="display:none;">
+      <div class="gcal-settings">
+        <h3>GOOGLE CALENDAR INTEGRATION</h3>
+        <p style="color:var(--gray-400);font-size:0.9rem;margin-bottom:1.25rem;">Connect your Google Calendar so confirmed bookings automatically sync as events. When you confirm a booking, it will be added to your calendar.</p>
+
+        <div id="gcal-status" style="margin-bottom:1rem;">
+          <span style="color:var(--gray-500);font-size:0.85rem;">Not connected</span>
+        </div>
+
+        <div style="margin-bottom:1.5rem;">
+          <label style="display:block;font-size:0.75rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.4rem;">Google OAuth Client ID</label>
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <input type="text" id="gcal-client-id" placeholder="your-client-id.apps.googleusercontent.com" style="flex:1;padding:0.7rem 1rem;background:var(--navy);border:1px solid var(--navy-lighter);border-radius:8px;color:var(--white);font-family:var(--font-body);font-size:0.85rem;outline:none;">
+            <button class="action-btn action-btn-calendar" onclick="saveGCalClientId()">Save</button>
+          </div>
+          <p style="color:var(--gray-500);font-size:0.75rem;margin-top:0.5rem;">Create at <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color:var(--teal);">Google Cloud Console</a> → Credentials → OAuth 2.0 Client ID (Web). Add <code style="background:var(--navy);padding:0.1rem 0.3rem;border-radius:3px;">https://sml-wicked-striper.netlify.app</code> as authorized JavaScript origin. Enable the <a href="https://console.cloud.google.com/apis/library/calendar-json.googleapis.com" target="_blank" style="color:var(--teal);">Google Calendar API</a>.</p>
+        </div>
+
+        <button class="action-btn action-btn-calendar" id="gcal-connect-btn" onclick="connectGoogleCalendar()" style="padding:0.7rem 1.5rem;font-size:0.9rem;" disabled>
+          &#128197; Connect Google Calendar
+        </button>
+        <button class="action-btn action-btn-edit" id="gcal-disconnect-btn" onclick="disconnectGoogleCalendar()" style="display:none;padding:0.7rem 1.5rem;font-size:0.9rem;">
+          Disconnect
+        </button>
+      </div>
+
+      <div class="gcal-settings">
+        <h3>QUICK CALENDAR (NO SETUP NEEDED)</h3>
+        <p style="color:var(--gray-400);font-size:0.9rem;margin-bottom:0.75rem;">Don't want to set up OAuth? No problem. When you confirm a booking, an <strong style="color:var(--white);">"Add to Google Calendar"</strong> button will appear. Click it to add the event directly &mdash; no API connection needed.</p>
+        <p style="color:var(--green);font-size:0.85rem;">&#10003; This works by default with no setup.</p>
+      </div>
+    </div><!-- end panel-settings -->
+
   </div>
 </div>
+
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <script>
   // ========== CONFIGURATION ==========
@@ -1120,6 +1278,23 @@
             </div>
             ${b.notes ? `<div class="detail-notes"><label>Notes / Message</label><p>${escapeHtml(b.notes)}</p></div>` : ''}
             ${renderRawFields(b.raw, b)}
+            <div class="edit-date-row" id="editdate-${globalIdx}" style="display:none;">
+              <label>Change Date:</label>
+              <input type="date" id="newdate-${globalIdx}" value="${b.preferred_date !== '--' ? b.preferred_date : ''}">
+              <button class="save-btn" onclick="saveDate('${b.id}', ${globalIdx})">Save Date</button>
+              <button class="action-btn action-btn-edit" onclick="document.getElementById('editdate-${globalIdx}').style.display='none'" style="padding:0.4rem 0.75rem;">Cancel</button>
+            </div>
+            <div class="action-bar">
+              ${status !== 'confirmed' && status !== 'completed' ?
+                `<button class="action-btn action-btn-confirm" onclick="event.stopPropagation();confirmBooking('${b.id}',${globalIdx})">&#10003; Confirm Booking</button>` :
+                status === 'confirmed' ?
+                `<span class="action-confirmed">&#10003; Confirmed</span>
+                 <button class="action-btn action-btn-complete" onclick="event.stopPropagation();setStatus('${b.id}','completed');closeAllMenus();">Mark Completed</button>` :
+                `<span class="action-confirmed" style="color:var(--gold);">&#9733; Completed</span>`
+              }
+              <button class="action-btn action-btn-edit" onclick="event.stopPropagation();document.getElementById('editdate-${globalIdx}').style.display='flex';">&#9998; Edit Date</button>
+              <button class="action-btn action-btn-calendar" onclick="event.stopPropagation();addToCalendar(${globalIdx})">&#128197; Add to Calendar</button>
+            </div>
           </td>
         </tr>
       `;
@@ -1218,11 +1393,12 @@
 
   // ========== TAB SWITCHING ==========
   function switchTab(tab) {
-    document.getElementById('panel-bookings').style.display = tab === 'bookings' ? 'block' : 'none';
-    document.getElementById('panel-traffic').style.display = tab === 'traffic' ? 'block' : 'none';
-    document.getElementById('tab-bookings').classList.toggle('active', tab === 'bookings');
-    document.getElementById('tab-traffic').classList.toggle('active', tab === 'traffic');
+    ['bookings','traffic','settings'].forEach(t => {
+      document.getElementById('panel-' + t).style.display = tab === t ? 'block' : 'none';
+      document.getElementById('tab-' + t).classList.toggle('active', tab === t);
+    });
     if (tab === 'traffic') fetchTraffic();
+    if (tab === 'settings') loadGCalSettings();
   }
 
   // ========== TRAFFIC / ANALYTICS ==========
@@ -1382,6 +1558,215 @@
       const date = new Date(d.date || d.ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       return `<div class="chart-bar" style="height:${h}px;"><div class="chart-tip">${date}: ${d.count || 0}</div></div>`;
     }).join('');
+  }
+
+  // ========== CONFIRM BOOKING ==========
+  function confirmBooking(bookingId, idx) {
+    setStatus(bookingId, 'confirmed');
+    closeAllMenus();
+
+    // Try Google Calendar API sync if connected
+    const gcalToken = localStorage.getItem('ws_gcal_token');
+    if (gcalToken) {
+      addToCalendarAPI(idx, gcalToken);
+    }
+  }
+
+  // ========== DATE EDITING ==========
+  function getDateOverrides() {
+    try { return JSON.parse(localStorage.getItem('ws_date_overrides') || '{}'); }
+    catch { return {}; }
+  }
+
+  function saveDate(bookingId, idx) {
+    const input = document.getElementById('newdate-' + idx);
+    const newDate = input.value;
+    if (!newDate) return;
+
+    const overrides = getDateOverrides();
+    overrides[bookingId] = newDate;
+    localStorage.setItem('ws_date_overrides', JSON.stringify(overrides));
+
+    // Update in-memory data
+    const booking = allBookings.find(b => b.id === bookingId);
+    if (booking) booking.preferred_date = newDate;
+
+    document.getElementById('editdate-' + idx).style.display = 'none';
+    applyFilters();
+  }
+
+  // Apply date overrides after fetching bookings (patch into fetchBookings)
+  const _origApplyFilters = applyFilters;
+  applyFilters = function() {
+    const overrides = getDateOverrides();
+    allBookings.forEach(b => {
+      if (overrides[b.id]) b.preferred_date = overrides[b.id];
+    });
+    _origApplyFilters();
+  };
+
+  // ========== GOOGLE CALENDAR - QUICK LINK ==========
+  function addToCalendar(idx) {
+    const b = filteredBookings[idx] || allBookings[idx];
+    if (!b) return;
+
+    const gcalToken = localStorage.getItem('ws_gcal_token');
+    if (gcalToken) {
+      addToCalendarAPI(idx, gcalToken);
+      return;
+    }
+
+    // Fallback: open Google Calendar URL
+    const title = encodeURIComponent('Fishing Trip - ' + b.name);
+    const tripType = b.trip_type || '';
+    const hours = tripType.includes('8') ? 8 : tripType.includes('6') ? 6 : 4;
+    let dateStr = b.preferred_date;
+    if (dateStr === '--') dateStr = new Date().toISOString().split('T')[0];
+
+    const startDate = dateStr.replace(/-/g, '') + 'T060000';
+    const endH = 6 + hours;
+    const endDate = dateStr.replace(/-/g, '') + 'T' + String(endH).padStart(2, '0') + '0000';
+
+    const details = encodeURIComponent(
+      'Guest: ' + b.name + '\\n' +
+      'Phone: ' + b.phone + '\\n' +
+      'Email: ' + b.email + '\\n' +
+      'Trip: ' + b.trip_type + '\\n' +
+      'Guests: ' + b.guests + '\\n' +
+      'Total: $' + b.estimated_total + '\\n' +
+      (b.notes ? 'Notes: ' + b.notes : '')
+    );
+    const location = encodeURIComponent('Smith Mountain Lake, Moneta, VA 24121');
+
+    const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + title +
+      '&dates=' + startDate + '/' + endDate +
+      '&details=' + details +
+      '&location=' + location;
+
+    window.open(url, '_blank');
+  }
+
+  // ========== GOOGLE CALENDAR API ==========
+  let gcalTokenClient = null;
+
+  function saveGCalClientId() {
+    const clientId = document.getElementById('gcal-client-id').value.trim();
+    if (!clientId) return;
+    localStorage.setItem('ws_gcal_client_id', clientId);
+    document.getElementById('gcal-connect-btn').disabled = false;
+    loadGCalSettings();
+  }
+
+  function loadGCalSettings() {
+    const clientId = localStorage.getItem('ws_gcal_client_id') || '';
+    const token = localStorage.getItem('ws_gcal_token');
+    const email = localStorage.getItem('ws_gcal_email');
+
+    document.getElementById('gcal-client-id').value = clientId;
+    document.getElementById('gcal-connect-btn').disabled = !clientId;
+
+    if (token && email) {
+      document.getElementById('gcal-status').innerHTML = '<span class="gcal-connected">&#10003; Connected</span> <span style="color:var(--gray-400);font-size:0.85rem;margin-left:0.5rem;">' + escapeHtml(email) + '</span>';
+      document.getElementById('gcal-connect-btn').style.display = 'none';
+      document.getElementById('gcal-disconnect-btn').style.display = 'inline-flex';
+    } else if (token) {
+      document.getElementById('gcal-status').innerHTML = '<span class="gcal-connected">&#10003; Connected</span>';
+      document.getElementById('gcal-connect-btn').style.display = 'none';
+      document.getElementById('gcal-disconnect-btn').style.display = 'inline-flex';
+    } else {
+      document.getElementById('gcal-status').innerHTML = '<span style="color:var(--gray-500);font-size:0.85rem;">Not connected</span>';
+      document.getElementById('gcal-connect-btn').style.display = 'inline-flex';
+      document.getElementById('gcal-disconnect-btn').style.display = 'none';
+    }
+  }
+
+  function connectGoogleCalendar() {
+    const clientId = localStorage.getItem('ws_gcal_client_id');
+    if (!clientId) { alert('Please enter your Google OAuth Client ID first.'); return; }
+
+    if (typeof google === 'undefined' || !google.accounts) {
+      alert('Google Identity Services not loaded. Please refresh the page.');
+      return;
+    }
+
+    gcalTokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope: 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/userinfo.email',
+      callback: async (response) => {
+        if (response.access_token) {
+          localStorage.setItem('ws_gcal_token', response.access_token);
+          // Get user email
+          try {
+            const resp = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+              headers: { 'Authorization': 'Bearer ' + response.access_token }
+            });
+            const info = await resp.json();
+            if (info.email) localStorage.setItem('ws_gcal_email', info.email);
+          } catch (e) {}
+          loadGCalSettings();
+        }
+      }
+    });
+    gcalTokenClient.requestAccessToken();
+  }
+
+  function disconnectGoogleCalendar() {
+    localStorage.removeItem('ws_gcal_token');
+    localStorage.removeItem('ws_gcal_email');
+    loadGCalSettings();
+  }
+
+  async function addToCalendarAPI(idx, token) {
+    const start = (currentPage - 1) * PER_PAGE;
+    const b = filteredBookings[start + idx] || filteredBookings[idx] || allBookings[idx];
+    if (!b) return;
+
+    const tripType = b.trip_type || '';
+    const hours = tripType.includes('8') ? 8 : tripType.includes('6') ? 6 : 4;
+    let dateStr = b.preferred_date;
+    if (dateStr === '--') dateStr = new Date().toISOString().split('T')[0];
+
+    const startTime = dateStr + 'T06:00:00';
+    const endH = 6 + hours;
+    const endTime = dateStr + 'T' + String(endH).padStart(2, '0') + ':00:00';
+
+    const event = {
+      summary: 'Fishing Trip - ' + b.name,
+      location: 'Smith Mountain Lake, Moneta, VA 24121',
+      description: 'Guest: ' + b.name + '\nPhone: ' + b.phone + '\nEmail: ' + b.email + '\nTrip: ' + b.trip_type + '\nGuests: ' + b.guests + '\nTotal: $' + b.estimated_total + (b.notes ? '\nNotes: ' + b.notes : ''),
+      start: { dateTime: startTime, timeZone: 'America/New_York' },
+      end: { dateTime: endTime, timeZone: 'America/New_York' },
+      reminders: { useDefault: false, overrides: [{ method: 'popup', minutes: 60 }, { method: 'popup', minutes: 1440 }] }
+    };
+
+    try {
+      const resp = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+        body: JSON.stringify(event)
+      });
+
+      if (resp.ok) {
+        const created = await resp.json();
+        alert('Event added to Google Calendar!\n\n' + b.name + ' - ' + dateStr);
+      } else if (resp.status === 401) {
+        // Token expired, clear and fall back to URL
+        localStorage.removeItem('ws_gcal_token');
+        localStorage.removeItem('ws_gcal_email');
+        loadGCalSettings();
+        addToCalendar(idx); // Retry with URL fallback
+      } else {
+        const err = await resp.json();
+        alert('Failed to add event: ' + (err.error?.message || resp.statusText) + '\n\nOpening Google Calendar link instead...');
+        localStorage.removeItem('ws_gcal_token');
+        addToCalendar(idx);
+      }
+    } catch (e) {
+      alert('Error: ' + e.message + '\n\nOpening Google Calendar link instead...');
+      localStorage.removeItem('ws_gcal_token');
+      addToCalendar(idx);
+    }
   }
 
   function formatBytes(bytes) {
