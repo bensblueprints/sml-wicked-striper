@@ -882,6 +882,7 @@
     <!-- Tabs -->
     <div style="display:flex;gap:0.5rem;margin-bottom:1.5rem;">
       <button class="tab-btn active" id="tab-bookings" onclick="switchTab('bookings')">Bookings</button>
+      <button class="tab-btn" id="tab-blog" onclick="switchTab('blog')">Blog</button>
       <button class="tab-btn" id="tab-calendar" onclick="switchTab('calendar')">Trip Calendar</button>
       <button class="tab-btn" id="tab-traffic" onclick="switchTab('traffic')">Traffic & Analytics</button>
       <button class="tab-btn" id="tab-settings" onclick="switchTab('settings')">Settings</button>
@@ -969,6 +970,85 @@
       </div>
     </div>
     </div><!-- end panel-bookings -->
+
+    <!-- ==================== BLOG TAB ==================== -->
+    <div id="panel-blog" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <div>
+          <h2 style="font-family:var(--font-display);font-size:1.8rem;color:var(--white);letter-spacing:2px;">BLOG POSTS</h2>
+          <p style="color:var(--gray-400);font-size:0.85rem;" id="blog-count">0 posts</p>
+        </div>
+        <button class="action-btn action-btn-confirm" onclick="openBlogEditor()">+ New Blog Post</button>
+      </div>
+
+      <div id="blog-posts-list" style="display:flex;flex-direction:column;gap:1rem;">Loading...</div>
+
+      <!-- Blog Editor Modal -->
+      <div id="modal-blog" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:flex-start;justify-content:center;overflow-y:auto;padding:2rem;">
+        <div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:2rem;width:100%;max-width:800px;margin:2rem auto;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <h3 style="font-family:var(--font-display);font-size:1.5rem;color:var(--white);letter-spacing:1px;" id="blog-editor-title">NEW BLOG POST</h3>
+            <button class="action-btn action-btn-edit" onclick="closeBlogEditor()" style="padding:0.4rem 0.75rem;">&#10005;</button>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+            <div style="grid-column:span 2;"><label style="display:block;font-size:0.7rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem;">Post Title</label><input id="be-title" class="login-input" style="margin:0;" placeholder="e.g. Best Times to Fish Smith Mountain Lake"></div>
+            <div><label style="display:block;font-size:0.7rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem;">URL Slug</label><input id="be-slug" class="login-input" style="margin:0;" placeholder="auto-generated-from-title"></div>
+            <div><label style="display:block;font-size:0.7rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem;">Date</label><input id="be-date" type="date" class="login-input" style="margin:0;"></div>
+          </div>
+
+          <div style="margin-bottom:1rem;"><label style="display:block;font-size:0.7rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem;">Meta Description (SEO)</label><input id="be-meta" class="login-input" style="margin:0;" placeholder="150-160 chars for search results" maxlength="160"></div>
+
+          <div style="margin-bottom:1rem;">
+            <label style="display:block;font-size:0.7rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem;">Featured Image</label>
+            <div style="display:flex;gap:0.75rem;align-items:center;">
+              <select id="be-image" class="login-input" style="margin:0;flex:1;">
+                <option value="images/site_008.jpg">Catch photo 1</option>
+                <option value="images/site_009.jpg">Kid fishing</option>
+                <option value="images/site_011.jpg">Captain with catch</option>
+                <option value="images/site_012.jpg">Catch photo 2</option>
+                <option value="images/site_013.jpg">Catch photo 3</option>
+                <option value="images/site_014.jpg">Catch photo 4</option>
+                <option value="images/site_015.jpg">Group catch</option>
+                <option value="images/site_016.jpg">Catch photo 5</option>
+                <option value="images/site_017.jpg">Catch photo 6</option>
+                <option value="images/site_018.jpg">Catch photo 7</option>
+                <option value="images/site_019.jpg">Fishing action</option>
+                <option value="images/site_020.jpg">Catch photo 8</option>
+                <option value="images/site_021.jpg">Catch photo 9</option>
+                <option value="images/site_022.jpg">Catch photo 10</option>
+                <option value="images/site_001.jpg">Boat on lake</option>
+                <option value="images/site_005.jpg">Boat at sunset</option>
+              </select>
+              <label class="action-btn action-btn-calendar" style="cursor:pointer;margin:0;">
+                Upload <input type="file" id="be-upload" accept="image/*" style="display:none;" onchange="handleBlogImageUpload(this)">
+              </label>
+            </div>
+            <div id="be-image-preview" style="margin-top:0.5rem;"></div>
+          </div>
+
+          <!-- Toolbar -->
+          <div style="margin-bottom:0.5rem;display:flex;gap:0.25rem;flex-wrap:wrap;">
+            <button class="action-btn action-btn-edit" onclick="blogFormat('h2')" style="padding:0.3rem 0.6rem;font-size:0.75rem;">H2</button>
+            <button class="action-btn action-btn-edit" onclick="blogFormat('h3')" style="padding:0.3rem 0.6rem;font-size:0.75rem;">H3</button>
+            <button class="action-btn action-btn-edit" onclick="blogFormat('bold')" style="padding:0.3rem 0.6rem;font-size:0.75rem;font-weight:700;">B</button>
+            <button class="action-btn action-btn-edit" onclick="blogFormat('italic')" style="padding:0.3rem 0.6rem;font-size:0.75rem;font-style:italic;">I</button>
+            <button class="action-btn action-btn-edit" onclick="blogFormat('link')" style="padding:0.3rem 0.6rem;font-size:0.75rem;">Link</button>
+            <button class="action-btn action-btn-edit" onclick="blogFormat('ul')" style="padding:0.3rem 0.6rem;font-size:0.75rem;">List</button>
+            <button class="action-btn action-btn-edit" onclick="blogFormat('quote')" style="padding:0.3rem 0.6rem;font-size:0.75rem;">Quote</button>
+            <button class="action-btn action-btn-edit" onclick="blogFormat('image')" style="padding:0.3rem 0.6rem;font-size:0.75rem;">Img</button>
+            <button class="action-btn action-btn-edit" onclick="blogFormat('p')" style="padding:0.3rem 0.6rem;font-size:0.75rem;">Para</button>
+          </div>
+
+          <div style="margin-bottom:1rem;"><label style="display:block;font-size:0.7rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem;">Content (HTML)</label><textarea id="be-content" class="login-input" style="margin:0;min-height:350px;font-family:monospace;font-size:0.8rem;line-height:1.5;resize:vertical;" placeholder="<p>Write your blog post content here...</p>"></textarea></div>
+
+          <div style="display:flex;gap:0.75rem;">
+            <button class="action-btn action-btn-confirm" onclick="saveBlogPost()" style="flex:1;justify-content:center;padding:0.75rem;">Publish Post</button>
+            <button class="action-btn action-btn-edit" onclick="closeBlogEditor()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- end panel-blog -->
 
     <!-- ==================== CALENDAR TAB ==================== -->
     <div id="panel-calendar" style="display:none;">
@@ -1538,10 +1618,11 @@
 
   // ========== TAB SWITCHING ==========
   function switchTab(tab) {
-    ['bookings','calendar','traffic','settings'].forEach(t => {
+    ['bookings','blog','calendar','traffic','settings'].forEach(t => {
       document.getElementById('panel-' + t).style.display = tab === t ? 'block' : 'none';
       document.getElementById('tab-' + t).classList.toggle('active', tab === t);
     });
+    if (tab === 'blog') initBlogTab();
     if (tab === 'traffic') fetchTraffic();
     if (tab === 'settings') loadGCalSettings();
     if (tab === 'calendar') renderCalendar();
@@ -1953,6 +2034,162 @@
       addToCalendar(idx);
     }
   }
+
+  // ========== BLOG MANAGEMENT ==========
+  let editingBlogId = null;
+
+  function getBlogPosts() {
+    try { return JSON.parse(localStorage.getItem('ws_blog_posts') || '[]'); } catch { return []; }
+  }
+
+  function renderBlogList() {
+    const posts = getBlogPosts();
+    document.getElementById('blog-count').textContent = posts.length + ' custom post' + (posts.length !== 1 ? 's' : '') + ' (+ pre-built SEO posts in blog-data.json)';
+    const container = document.getElementById('blog-posts-list');
+
+    if (posts.length === 0) {
+      container.innerHTML = '<div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:2rem;text-align:center;color:var(--gray-400);">No custom blog posts yet. The 15 pre-built SEO posts are automatically loaded from blog-data.json. Click "+ New Blog Post" to add more.</div>';
+      return;
+    }
+
+    container.innerHTML = posts.map((post, i) => {
+      const date = new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const excerpt = post.metaDescription || post.content?.replace(/<[^>]+>/g, '').substring(0, 100) + '...';
+      return `<div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:1.25rem;display:flex;gap:1.25rem;align-items:center;">
+        <img src="${post.heroImage || 'images/site_005.jpg'}" alt="" style="width:80px;height:60px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:0.7rem;color:var(--teal);text-transform:uppercase;letter-spacing:1px;">${date}</div>
+          <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--white);letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(post.title)}</div>
+          <div style="font-size:0.8rem;color:var(--gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(excerpt)}</div>
+        </div>
+        <div style="display:flex;gap:0.5rem;flex-shrink:0;">
+          <button class="action-btn action-btn-edit" onclick="editBlogPost(${i})" style="padding:0.4rem 0.75rem;font-size:0.75rem;">Edit</button>
+          <button class="action-btn" onclick="if(confirm('Delete this post?')){deleteBlogPost(${i})}" style="padding:0.4rem 0.75rem;font-size:0.75rem;background:transparent;color:var(--red);border:1px solid rgba(239,68,68,0.3);">Delete</button>
+          <a href="blog.html#${post.slug}" target="_blank" class="action-btn action-btn-calendar" style="padding:0.4rem 0.75rem;font-size:0.75rem;text-decoration:none;">View</a>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function openBlogEditor(post) {
+    editingBlogId = null;
+    document.getElementById('blog-editor-title').textContent = 'NEW BLOG POST';
+    document.getElementById('be-title').value = '';
+    document.getElementById('be-slug').value = '';
+    document.getElementById('be-date').value = new Date().toISOString().split('T')[0];
+    document.getElementById('be-meta').value = '';
+    document.getElementById('be-content').value = '';
+    document.getElementById('be-image').value = 'images/site_008.jpg';
+    document.getElementById('be-image-preview').innerHTML = '';
+    document.getElementById('modal-blog').style.display = 'flex';
+  }
+
+  function closeBlogEditor() { document.getElementById('modal-blog').style.display = 'none'; }
+
+  function editBlogPost(idx) {
+    const posts = getBlogPosts();
+    const post = posts[idx];
+    if (!post) return;
+    editingBlogId = idx;
+    document.getElementById('blog-editor-title').textContent = 'EDIT BLOG POST';
+    document.getElementById('be-title').value = post.title || '';
+    document.getElementById('be-slug').value = post.slug || '';
+    document.getElementById('be-date').value = post.date || '';
+    document.getElementById('be-meta').value = post.metaDescription || '';
+    document.getElementById('be-content').value = post.content || '';
+    document.getElementById('be-image').value = post.heroImage || 'images/site_008.jpg';
+    document.getElementById('be-image-preview').innerHTML = '';
+    document.getElementById('modal-blog').style.display = 'flex';
+  }
+
+  function deleteBlogPost(idx) {
+    const posts = getBlogPosts();
+    posts.splice(idx, 1);
+    localStorage.setItem('ws_blog_posts', JSON.stringify(posts));
+    renderBlogList();
+  }
+
+  function saveBlogPost() {
+    const title = document.getElementById('be-title').value.trim();
+    if (!title) { alert('Title is required.'); return; }
+
+    let slug = document.getElementById('be-slug').value.trim();
+    if (!slug) slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+
+    const post = {
+      title,
+      slug,
+      date: document.getElementById('be-date').value || new Date().toISOString().split('T')[0],
+      metaDescription: document.getElementById('be-meta').value.trim(),
+      heroImage: document.getElementById('be-image').value,
+      content: document.getElementById('be-content').value
+    };
+
+    // Check for uploaded custom image
+    const preview = document.getElementById('be-image-preview');
+    const customImg = preview.querySelector('img');
+    if (customImg && customImg.src.startsWith('data:')) {
+      post.heroImage = customImg.src; // Store as base64
+    }
+
+    const posts = getBlogPosts();
+    if (editingBlogId !== null) {
+      posts[editingBlogId] = post;
+    } else {
+      posts.unshift(post);
+    }
+    localStorage.setItem('ws_blog_posts', JSON.stringify(posts));
+
+    closeBlogEditor();
+    renderBlogList();
+    editingBlogId = null;
+  }
+
+  // Auto-generate slug from title
+  document.getElementById('be-title')?.addEventListener('input', function() {
+    if (editingBlogId !== null) return; // Don't auto-slug on edit
+    const slug = this.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    document.getElementById('be-slug').value = slug;
+  });
+
+  // Blog formatting toolbar
+  function blogFormat(type) {
+    const ta = document.getElementById('be-content');
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    const selected = ta.value.substring(start, end);
+    let insert = '';
+
+    switch (type) {
+      case 'h2': insert = '<h2>' + (selected || 'Heading') + '</h2>'; break;
+      case 'h3': insert = '<h3>' + (selected || 'Subheading') + '</h3>'; break;
+      case 'bold': insert = '<strong>' + (selected || 'bold text') + '</strong>'; break;
+      case 'italic': insert = '<em>' + (selected || 'italic text') + '</em>'; break;
+      case 'link': insert = '<a href="' + (prompt('URL:') || '#') + '">' + (selected || 'link text') + '</a>'; break;
+      case 'ul': insert = '<ul>\n  <li>' + (selected || 'Item 1') + '</li>\n  <li>Item 2</li>\n  <li>Item 3</li>\n</ul>'; break;
+      case 'quote': insert = '<blockquote>' + (selected || 'Quote text here') + '</blockquote>'; break;
+      case 'image': insert = '<img src="' + (prompt('Image path (e.g. images/site_015.jpg):') || 'images/site_015.jpg') + '" alt="' + (selected || 'Photo description') + '">'; break;
+      case 'p': insert = '<p>' + (selected || 'Paragraph text here.') + '</p>'; break;
+    }
+
+    ta.value = ta.value.substring(0, start) + insert + ta.value.substring(end);
+    ta.focus();
+    ta.selectionStart = ta.selectionEnd = start + insert.length;
+  }
+
+  // Image upload handler
+  function handleBlogImageUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('be-image-preview').innerHTML = '<img src="' + e.target.result + '" style="max-width:200px;max-height:120px;border-radius:8px;margin-top:0.5rem;"><span style="color:var(--green);font-size:0.75rem;margin-left:0.5rem;">Uploaded (stored as base64)</span>';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Load blog list when tab opens
+  function initBlogTab() { renderBlogList(); }
 
   // ========== TRIP CALENDAR ==========
   let calYear, calMonth;
