@@ -2049,9 +2049,33 @@
   }
 
   function calDayClick(dateStr) {
-    // Pre-fill manual booking with this date
-    document.getElementById('m-date').value = dateStr;
-    openManualBooking();
+    // Show action picker
+    const action = document.createElement('div');
+    action.id = 'cal-action-picker';
+    action.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    const label = new Date(dateStr + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    action.innerHTML = '<div style="background:var(--navy-light);border:1px solid var(--navy-lighter);border-radius:var(--radius);padding:2rem;width:100%;max-width:340px;text-align:center;">' +
+      '<div style="font-family:var(--font-display);font-size:1.3rem;color:var(--white);letter-spacing:1px;margin-bottom:1.25rem;">' + label.toUpperCase() + '</div>' +
+      '<div style="display:flex;flex-direction:column;gap:0.75rem;">' +
+        '<button class="action-btn action-btn-confirm" onclick="closeCalPicker();document.getElementById(\'m-date\').value=\'' + dateStr + '\';openManualBooking();" style="width:100%;justify-content:center;padding:0.75rem;">+ Add Trip</button>' +
+        '<button class="action-btn" onclick="closeCalPicker();quickBlock(\'' + dateStr + '\');" style="width:100%;justify-content:center;padding:0.75rem;background:var(--red);color:white;">Block This Day</button>' +
+        '<button class="action-btn action-btn-edit" onclick="closeCalPicker();" style="width:100%;justify-content:center;padding:0.75rem;">Cancel</button>' +
+      '</div></div>';
+    action.addEventListener('click', function(e) { if (e.target === action) closeCalPicker(); });
+    document.body.appendChild(action);
+  }
+
+  function closeCalPicker() {
+    const p = document.getElementById('cal-action-picker');
+    if (p) p.remove();
+  }
+
+  function quickBlock(dateStr) {
+    const reason = prompt('Reason (optional):') || '';
+    const blocks = getBlockedDates();
+    blocks.push({ start: dateStr, end: dateStr, reason });
+    localStorage.setItem('ws_blocked_dates', JSON.stringify(blocks));
+    renderCalendar();
   }
 
   // Manual booking
