@@ -1003,10 +1003,8 @@
             <label style="display:block;font-size:0.7rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem;">Featured Image</label>
             <div style="display:flex;gap:0.75rem;align-items:center;">
               <select id="be-image" class="login-input" style="margin:0;flex:1;">
-                <option value="images/site_008.jpg">Catch photo 1</option>
                 <option value="images/site_009.jpg">Kid fishing</option>
                 <option value="images/site_011.jpg">Captain with catch</option>
-                <option value="images/site_012.jpg">Catch photo 2</option>
                 <option value="images/site_013.jpg">Catch photo 3</option>
                 <option value="images/site_014.jpg">Catch photo 4</option>
                 <option value="images/site_015.jpg">Group catch</option>
@@ -2116,7 +2114,7 @@
     document.getElementById('be-date').value = new Date().toISOString().split('T')[0];
     document.getElementById('be-meta').value = '';
     document.getElementById('be-content').value = '';
-    document.getElementById('be-image').value = 'images/site_008.jpg';
+    document.getElementById('be-image').value = 'images/site_009.jpg';
     document.getElementById('be-image-preview').innerHTML = '';
     document.getElementById('modal-blog').style.display = 'flex';
   }
@@ -2134,7 +2132,7 @@
     document.getElementById('be-date').value = post.date || '';
     document.getElementById('be-meta').value = post.metaDescription || '';
     document.getElementById('be-content').value = post.content || '';
-    document.getElementById('be-image').value = post.heroImage || 'images/site_008.jpg';
+    document.getElementById('be-image').value = post.heroImage || 'images/site_009.jpg';
     document.getElementById('be-image-preview').innerHTML = '';
     document.getElementById('modal-blog').style.display = 'flex';
   }
