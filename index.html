@@ -1697,24 +1697,8 @@
       }
     })();
 
-    // ========== ANALYTICS TRACKER ==========
-    (function(){
-      if (sessionStorage.getItem('ws_tracked')) return;
-      sessionStorage.setItem('ws_tracked', '1');
-      var data = new URLSearchParams({
-        'form-name': 'pageview',
-        page: location.pathname,
-        referrer: document.referrer || 'direct',
-        timestamp: new Date().toISOString(),
-        screen: screen.width + 'x' + screen.height,
-        ua: navigator.userAgent.substring(0, 200)
-      });
-      navigator.sendBeacon('/', data);
-    })();
+    // Pageview tracking disabled - was causing email spam
+    // Admin dashboard will still work, daily reports set up via n8n
   </script>
-  <!-- Analytics form (Netlify detects this) -->
-  <form name="pageview" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input name="page"><input name="referrer"><input name="timestamp"><input name="screen"><input name="ua">
-  </form>
 </body>
 </html>
