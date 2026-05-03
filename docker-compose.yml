@@ -1,0 +1,7 @@
+services:
+  sml-wicked-striper:
+    build: .
+    container_name: sml-wicked-striper
+    ports:
+      - "8080:80"
+    restart: unless-stopped
