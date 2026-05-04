@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smith Mountain Lake Fishing Guide | SML Wicked Striper Guide Service - Captain Tommy Moore</title>
-  <meta name="description" content="Book a guided striped bass fishing trip on Smith Mountain Lake with Captain Tommy Moore. Licensed & insured charter in Moneta, VA. Rods, reels, tackle, live bait & PFDs included. Half day from $400.">
+  <meta name="description" content="Book a guided striped bass fishing trip on Smith Mountain Lake with Captain Tommy Moore. Licensed & insured charter in Moneta, VA. Rods, reels, tackle, live bait & PFDs included. Half day from $450.">
   <meta name="keywords" content="Smith Mountain Lake fishing guide, SML striper guide, fishing charter Moneta VA, Captain Tommy Moore, striped bass fishing Virginia, Smith Mountain Lake fishing trips, SML fishing charter, guided fishing trips Virginia, striper fishing guide near me, best fishing guide Smith Mountain Lake">
   <link rel="canonical" href="https://smlwickedstriper.com/">
   <meta name="robots" content="index, follow">
@@ -40,7 +40,7 @@
     "email": "smlwickedstriper@gmail.com",
     "image": "https://smlwickedstriper.com/images/site_005.jpg",
     "logo": "https://smlwickedstriper.com/images/logo.png",
-    "priceRange": "$400-$900",
+    "priceRange": "$450-$950",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "200 Pine Knob Cir",
@@ -67,21 +67,21 @@
         {
           "@type": "Offer",
           "name": "Half Day Fishing Charter (4 Hours)",
-          "price": "400",
+          "price": "450",
           "priceCurrency": "USD",
           "description": "4-hour guided striper fishing trip for 1-2 people. All equipment, live bait & PFDs included."
         },
         {
           "@type": "Offer",
           "name": "Full Day Fishing Charter (6 Hours)",
-          "price": "600",
+          "price": "650",
           "priceCurrency": "USD",
           "description": "6-hour guided striper fishing trip for 1-2 people. All equipment, live bait & PFDs included."
         },
         {
           "@type": "Offer",
           "name": "Marathon Fishing Charter (8 Hours)",
-          "price": "800",
+          "price": "850",
           "priceCurrency": "USD",
           "description": "8-hour guided striper fishing trip for 1-2 people. All equipment, live bait & PFDs included."
         }
@@ -103,7 +103,7 @@
       {
         "@type": "Question",
         "name": "How much does a fishing guide on Smith Mountain Lake cost?",
-        "acceptedAnswer": { "@type": "Answer", "text": "SML Wicked Striper Guide Service offers half-day (4 hour) trips starting at $400 for 1-2 people, full-day (6 hour) trips at $600, and marathon (8 hour) trips at $800. Additional guests are $25 each, up to 6 people total. All equipment, live bait, tackle, and PFDs are included." }
+        "acceptedAnswer": { "@type": "Answer", "text": "SML Wicked Striper Guide Service offers half-day (4 hour) trips starting at $450 for 1-2 people, full-day (6 hour) trips at $650, and marathon (8 hour) trips at $850. Additional guests are $25 each, up to 6 people total. All equipment, live bait, tackle, and PFDs are included." }
       },
       {
         "@type": "Question",
@@ -1210,7 +1210,7 @@
           <h3>HALF DAY</h3>
           <div class="price-duration">4 Hours on the Water</div>
           <div class="price-amount">
-            <span class="price-dollar">$400</span>
+            <span class="price-dollar">$450</span>
           </div>
           <div class="price-per">for 1&ndash;2 people</div>
           <div class="price-note">+$25 per additional person (max 6)</div>
@@ -1229,7 +1229,7 @@
           <h3>FULL DAY</h3>
           <div class="price-duration">6 Hours on the Water</div>
           <div class="price-amount">
-            <span class="price-dollar">$600</span>
+            <span class="price-dollar">$650</span>
           </div>
           <div class="price-per">for 1&ndash;2 people</div>
           <div class="price-note">+$25 per additional person (max 6)</div>
@@ -1248,7 +1248,7 @@
           <h3>MARATHON</h3>
           <div class="price-duration">8 Hours on the Water</div>
           <div class="price-amount">
-            <span class="price-dollar">$800</span>
+            <span class="price-dollar">$850</span>
           </div>
           <div class="price-per">for 1&ndash;2 people</div>
           <div class="price-note">+$25 per additional person (max 6)</div>
@@ -1353,9 +1353,9 @@
                 <label for="tripType">Trip Length</label>
                 <select id="tripType" name="tripType" required onchange="updatePrice()">
                   <option value="">Select trip...</option>
-                  <option value="half-day">Half Day &mdash; 4 Hours ($400)</option>
-                  <option value="full-day" selected>Full Day &mdash; 6 Hours ($600)</option>
-                  <option value="marathon">Marathon &mdash; 8 Hours ($800)</option>
+                  <option value="half-day">Half Day &mdash; 4 Hours ($450)</option>
+                  <option value="full-day" selected>Full Day &mdash; 6 Hours ($650)</option>
+                  <option value="marathon">Marathon &mdash; 8 Hours ($850)</option>
                 </select>
               </div>
               <div class="form-group">
@@ -1385,7 +1385,7 @@
 
             <div class="price-estimate">
               <div class="price-estimate-label">Estimated Total</div>
-              <div class="price-estimate-value" id="priceDisplay">$600</div>
+              <div class="price-estimate-value" id="priceDisplay">$650</div>
             </div>
 
             <button type="submit" class="btn btn-primary btn-book">
@@ -1622,7 +1622,7 @@
     });
 
     // Price calculator
-    const prices = { 'half-day': 400, 'full-day': 600, 'marathon': 800 };
+    const prices = { 'half-day': 450, 'full-day': 650, 'marathon': 850 };
     function updatePrice() {
       const trip = document.getElementById('tripType').value;
       const guests = parseInt(document.getElementById('guests').value) || 2;
