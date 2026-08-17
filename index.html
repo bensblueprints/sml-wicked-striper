@@ -1323,7 +1323,8 @@
         <div class="booking-form-card fade-up">
           <h3>REQUEST A BOOKING</h3>
           <p>Fill out the form below and Captain Tommy will confirm your trip.</p>
-          <form name="booking" id="bookingForm">
+          <form name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="bookingForm">
+            <input type="hidden" name="form-name" value="booking">
             <p style="display:none"><input name="bot-field"></p>
 
             <div class="form-row">
@@ -1642,7 +1643,16 @@
     // Form submission
     document.getElementById('bookingForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      this.innerHTML = '<div style="text-align:center;padding:3rem 1rem;"><div style="font-size:3rem;margin-bottom:1rem;">&#9989;</div><h3 style="font-family:var(--font-display);font-size:2rem;color:var(--navy);letter-spacing:1px;margin-bottom:0.5rem;">BOOKING REQUEST RECEIVED!</h3><p style="color:var(--gray-500);font-size:1rem;">Captain Tommy will contact you within 24 hours to confirm availability and arrange your deposit. You can also call or text <strong>(434) 610-3255</strong>.</p></div>';
+      const formData = new FormData(this);
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+      }).then(() => {
+        this.innerHTML = '<div style="text-align:center;padding:3rem 1rem;"><div style="font-size:3rem;margin-bottom:1rem;">&#9989;</div><h3 style="font-family:var(--font-display);font-size:2rem;color:var(--navy);letter-spacing:1px;margin-bottom:0.5rem;">BOOKING REQUEST SENT!</h3><p style="color:var(--gray-500);font-size:1rem;">Captain Tommy will contact you within 24 hours to confirm availability and arrange your deposit.</p></div>';
+      }).catch(() => {
+        alert('Something went wrong. Please call (434) 610-3255 to book directly.');
+      });
     });
 
     // Lightbox
